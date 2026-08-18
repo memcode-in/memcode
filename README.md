@@ -1,6 +1,6 @@
 <div align="center">
   <!-- Replace this URL with your logo or banner -->
-  <img width="800" height="316" alt="picsvg_download" src="https://github.com/user-attachments/assets/674b052b-baa0-4f93-b160-d21ea3694b81" />
+  <img width="300" height="57" alt="memcode-logo" src="https://github.com/user-attachments/assets/a0d7c0cd-944b-4036-b45b-2ee70516766c" />
 
 </div>
 
