@@ -1,9 +1,6 @@
 <div align="center">
   <!-- Replace this URL with your logo or banner -->
   <img width="1522" height="600" alt="image" src="https://github.com/user-attachments/assets/e0209f6b-1c72-4c0f-b7bd-0470dbbe1c07" />
-
-" />
-
 </div>
 
 <div align="center">
@@ -110,3 +107,13 @@ MemCode is under active development. APIs, interfaces, and infrastructure may ev
 
 We are building toward a world where every AI system can remember selectively, retrieve reliably, and improve continuously.
 
+
+<div align="center">
+  <p><strong>Building memory infrastructure for AI, end to end.</strong></p>
+
+  <p>
+    <a href="https://memcode.in">Website</a>
+    &nbsp;&bull;&nbsp;
+    <a href="https://app.memcode.in">Dashboard</a>
+  </p>
+</div>
