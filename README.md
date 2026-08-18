@@ -1,6 +1,7 @@
 <div align="center">
   <!-- Replace this URL with your logo or banner -->
-  <img width="1522" height="600" alt="image" src="https://github.com/user-attachments/assets/e0209f6b-1c72-4c0f-b7bd-0470dbbe1c07" />
+  <img width="1522" height="600" alt="WhatsApp Image 2026-08-18 at 23 39 00" src="https://github.com/user-attachments/assets/7682437f-4c6e-4cad-82d9-3dad38a77941" />
+
 </div>
 
 <div align="center">
