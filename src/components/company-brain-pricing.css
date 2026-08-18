@@ -1,0 +1,167 @@
+.company-brain-pricing--marketing .mk-intro {
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.company-brain-pricing--marketing .dashboard-pricing__grid {
+  gap: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  background: #050608;
+}
+
+.company-brain-pricing--marketing .dashboard-plan {
+  min-height: 560px;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: #0a0d14;
+  padding: clamp(1.4rem, 2.7vw, 2.2rem);
+}
+
+.company-brain-pricing--marketing .dashboard-plan + .dashboard-plan {
+  border-left: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.company-brain-pricing--marketing .dashboard-plan::before {
+  display: none;
+}
+
+.company-brain-pricing--marketing .dashboard-plan h3 {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 0.92rem;
+  font-weight: 750;
+}
+
+.company-brain-pricing--marketing .dashboard-plan__price {
+  min-height: 60px;
+  margin-top: 1.1rem;
+}
+
+.company-brain-pricing--marketing .dashboard-plan__price strong {
+  font-size: clamp(2.15rem, 3.6vw, 3.2rem);
+}
+
+.company-brain-pricing--marketing .dashboard-plan > p {
+  min-height: 82px;
+  margin-top: 1rem;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.company-brain-pricing--marketing .dashboard-plan__saving {
+  color: var(--blue-2);
+}
+
+.company-brain-pricing--marketing .dashboard-plan ul {
+  align-content: start;
+  gap: 0.72rem;
+  margin: 1.65rem 0 2rem;
+}
+
+.company-brain-pricing--marketing .dashboard-plan li {
+  color: rgba(255, 255, 255, 0.64);
+}
+
+.company-brain-pricing--marketing .dashboard-plan li svg {
+  color: var(--blue);
+  fill: none;
+  stroke: white;
+  stroke-width: 2;
+}
+
+.company-brain-pricing--marketing .dashboard-plan li svg circle {
+  fill: currentColor;
+  stroke: none;
+}
+
+.company-brain-pricing--marketing .dashboard-plan li svg path {
+  stroke: white;
+}
+
+.company-brain-pricing--marketing .dashboard-plan--featured {
+  border-top-color: rgba(47, 125, 255, 0.38);
+  background: #0f1420;
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.28);
+}
+
+.company-brain-pricing--marketing .dashboard-plan__button {
+  border-color: rgba(47, 125, 255, 0.42);
+  background: var(--blue);
+  color: white;
+}
+
+.company-brain-pricing--marketing .dashboard-plan__button:focus-visible {
+  outline: 2px solid var(--blue-2);
+  outline-offset: 3px;
+}
+
+.company-brain-pricing--marketing .dashboard-plan--custom .dashboard-plan__button {
+  border-color: rgba(47, 125, 255, 0.42);
+  background: var(--blue);
+  color: white;
+}
+
+.company-brain-pricing--marketing .dashboard-pricing__gift {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(260px, 0.8fr);
+  align-items: stretch;
+  gap: 0;
+  overflow: hidden;
+  margin-top: clamp(3.5rem, 7vw, 6rem);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  background: #080b12;
+  padding: 0;
+}
+
+.company-brain-pricing--marketing .dashboard-pricing__gift-message,
+.company-brain-pricing--marketing .dashboard-pricing__gift-details {
+  min-height: 230px;
+  padding: clamp(1.7rem, 4vw, 3.2rem);
+}
+
+.company-brain-pricing--marketing .dashboard-pricing__gift-message h3 span {
+  color: var(--blue-2);
+}
+
+@media (max-width: 920px) {
+  .company-brain-pricing--marketing .dashboard-plan {
+    min-height: auto;
+  }
+
+  .company-brain-pricing--marketing .dashboard-plan + .dashboard-plan {
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+    border-left: 0;
+  }
+
+  .company-brain-pricing--marketing .dashboard-plan > p {
+    min-height: 0;
+  }
+
+  .company-brain-pricing--marketing .dashboard-pricing__gift {
+    grid-template-columns: 1fr;
+    margin-top: 2.5rem;
+  }
+
+  .company-brain-pricing--marketing .dashboard-pricing__gift-message,
+  .company-brain-pricing--marketing .dashboard-pricing__gift-details {
+    min-height: 0;
+  }
+
+  .company-brain-pricing--marketing .dashboard-pricing__gift-details {
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+    border-left: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .company-brain-pricing--marketing .dashboard-pricing__grid,
+  .company-brain-pricing--marketing .dashboard-pricing__gift {
+    border-radius: 10px;
+  }
+
+  .company-brain-pricing--marketing .dashboard-plan {
+    padding: 1.25rem;
+  }
+}

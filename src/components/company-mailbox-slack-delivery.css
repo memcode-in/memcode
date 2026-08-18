@@ -1,0 +1,183 @@
+.company-mailbox-slack-delivery {
+  display: grid;
+  min-width: 0;
+  gap: 0.85rem;
+  margin: 0;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.018);
+  padding: 1rem;
+}
+
+.company-mailbox-slack-delivery legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.company-mailbox-slack-delivery__toggle {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.company-mailbox-slack-delivery__toggle input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.company-mailbox-slack-delivery__toggle input:focus-visible ~ i {
+  outline: 2px solid rgba(105, 167, 255, 0.8);
+  outline-offset: 3px;
+}
+
+.company-mailbox-slack-delivery__toggle input:disabled ~ * {
+  cursor: not-allowed;
+  opacity: 0.52;
+}
+
+.company-mailbox-slack-delivery__mark {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.company-mailbox-slack-delivery__mark svg {
+  width: 17px;
+  height: 17px;
+}
+
+.company-mailbox-slack-delivery__toggle > span:nth-of-type(2) {
+  display: grid;
+  min-width: 0;
+  gap: 0.2rem;
+}
+
+.company-mailbox-slack-delivery__toggle strong {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.8rem;
+  font-weight: 640;
+}
+
+.company-mailbox-slack-delivery__toggle small,
+.company-mailbox-slack-delivery__channel > span,
+.company-mailbox-slack-delivery__status,
+.company-mailbox-slack-delivery__privacy {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.68rem;
+  line-height: 1.5;
+}
+
+.company-mailbox-slack-delivery__toggle > i {
+  position: relative;
+  display: block;
+  width: 38px;
+  height: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.company-mailbox-slack-delivery__toggle > i b {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.54);
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+.company-mailbox-slack-delivery__toggle.is-enabled > i {
+  border-color: rgba(105, 167, 255, 0.55);
+  background: rgba(47, 125, 255, 0.2);
+}
+
+.company-mailbox-slack-delivery__toggle.is-enabled > i b {
+  background: #9dccff;
+  transform: translateX(16px);
+}
+
+.company-mailbox-slack-delivery__channel {
+  display: grid;
+  gap: 0.42rem;
+}
+
+.company-mailbox-slack-delivery__channel select {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9px;
+  outline: none;
+  background: #0a0d14;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0 0.75rem;
+  font: inherit;
+  font-size: 0.76rem;
+}
+
+.company-mailbox-slack-delivery__channel select:focus {
+  border-color: rgba(105, 167, 255, 0.52);
+  box-shadow: 0 0 0 3px rgba(47, 125, 255, 0.1);
+}
+
+.company-mailbox-slack-delivery__status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.company-mailbox-slack-delivery__status.is-warning {
+  color: rgba(255, 201, 148, 0.76);
+}
+
+.company-mailbox-slack-delivery__status.is-ready {
+  color: rgba(157, 204, 255, 0.76);
+}
+
+.company-mailbox-slack-delivery__status button {
+  flex: 0 0 auto;
+  border: 0;
+  background: transparent;
+  color: rgba(157, 204, 255, 0.8);
+  padding: 0;
+  font: inherit;
+  font-weight: 620;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.company-mailbox-slack-delivery__privacy {
+  margin: 0;
+  border-left: 2px solid rgba(105, 167, 255, 0.32);
+  padding-left: 0.7rem;
+}
+
+.company-mailbox-slack-delivery.is-compact {
+  gap: 0.7rem;
+  border-radius: 11px;
+  background: rgba(0, 0, 0, 0.16);
+  padding: 0.85rem;
+}
+
+@media (max-width: 520px) {
+  .company-mailbox-slack-delivery__status {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

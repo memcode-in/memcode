@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+  <filter id="noise">
+    <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="3" seed="11" />
+    <feColorMatrix type="saturate" values="0" />
+  </filter>
+  <rect width="180" height="180" filter="url(#noise)" opacity="0.28" />
+</svg>
