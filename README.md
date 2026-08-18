@@ -1,6 +1,8 @@
 <div align="center">
   <!-- Replace this URL with your logo or banner -->
-  <img width="2442" height="805" alt="image" src="https://github.com/user-attachments/assets/fbd83c2a-a93d-4b58-b0fa-f98a74f71cdb" />
+  <img width="1522" height="600" alt="image" src="https://github.com/user-attachments/assets/e0209f6b-1c72-4c0f-b7bd-0470dbbe1c07" />
+
+" />
 
 </div>
 
