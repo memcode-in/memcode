@@ -1416,8 +1416,7 @@ export default function CompanyBrainOnboarding({
               showResearchEditLockNotice()
             }}
           >
-            <span aria-hidden="true"><img src="/logo.jpeg" alt="" /></span>
-            <strong>memCode</strong>
+            <span aria-hidden="true"><img src="/logo.svg" alt="" /></span>
           </a>
           <div className="brain-onboarding__status">
             <span>{slackHistoryActive

@@ -133,7 +133,7 @@ export default function MemCodeSidebar({
     <>
       <aside className="memcode-sidebar">
         <a className="memcode-sidebar__brand" href="/" aria-label="MemCode home">
-          <img src="/logo.jpeg" alt="" />
+          <img src="/logo.svg" alt="" />
         </a>
         <span className="memcode-sidebar__wordmark" aria-hidden="true">{contextLabel}</span>
 

@@ -166,7 +166,7 @@ function formatCredits(value: number) {
 }
 
 function Logo() {
-  return <img alt="" className="memory-receipt-machine-logo" src="/logo.jpeg" />
+  return <img alt="" className="memory-receipt-machine-logo" src="/logo.svg" />
 }
 
 function BillingReceiptPrinter({
@@ -231,7 +231,7 @@ function BillingReceiptPrinter({
           <ReceiptPrinter.Output className="memory-receipt-output">
             <ReceiptPrinter.Paper className="memory-receipt-paper">
               <div className="memory-receipt-paper__logo">
-                <img src="/logo.jpeg" alt="MemCode" />
+                <img src="/logo.svg" alt="MemCode" />
               </div>
 
               <div className="memory-receipt-paper__rule" />

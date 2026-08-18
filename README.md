@@ -1,6 +1,5 @@
 <div align="center">
-  <!-- Replace this URL with your logo or banner -->
-  <img width="300" height="57" alt="memcode-logo" src="https://raw.githubusercontent.com/memcode-in/memcode/main/logo.svg" />
+  <img width="300" alt="MemCode logo" src="https://raw.githubusercontent.com/memcode-in/memcode/main/public/logo.svg" />
 
 </div>
 

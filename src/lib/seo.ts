@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 const SITE_ORIGIN = 'https://memcode.in'
-const DEFAULT_IMAGE = `${SITE_ORIGIN}/logo.jpeg`
+const DEFAULT_IMAGE = `${SITE_ORIGIN}/logo.svg`
 const DEFAULT_DESCRIPTION =
   'MemCode is a terminal-first AI coding agent powered by long-term project memory, model routing, CLI skills, and remote approval workflows.'
 

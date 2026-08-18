@@ -104,25 +104,22 @@ button {
 
 .brand__mark {
   display: grid;
-  width: 34px;
+  width: 148px;
   height: 34px;
   place-items: center;
   border: 1px solid rgba(105, 167, 255, 0.42);
   border-radius: 7px;
-  background: rgba(8, 16, 30, 0.94);
+  background: #fff;
   box-shadow: var(--shadow-blue);
   overflow: hidden;
+  padding: 5px 8px;
 }
 
 .brand__mark img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-}
-
-.brand__name {
-  letter-spacing: 0;
+  object-fit: contain;
 }
 
 .site-nav__links {
@@ -1487,7 +1484,7 @@ button {
 }
 
 .auth-card--login .brand__mark {
-  width: 38px;
+  width: 160px;
   height: 38px;
 }
 
@@ -1719,20 +1716,21 @@ button {
 
 .oauth-brand__icon {
   display: grid;
-  width: 42px;
+  width: 132px;
   height: 42px;
   place-items: center;
   overflow: hidden;
   border: 1px solid rgba(105, 167, 255, 0.34);
   border-radius: 8px;
-  background: rgba(47, 125, 255, 0.1);
+  background: #fff;
   box-shadow: var(--shadow-blue);
+  padding: 6px 8px;
 }
 
 .oauth-brand__icon img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .oauth-brand div {
@@ -4748,10 +4746,12 @@ button {
 }
 
 .memory-receipt-machine-logo {
-  width: 3rem;
-  height: 3rem;
+  width: 8rem;
+  height: 2.5rem;
   border-radius: 0.2rem;
-  object-fit: cover;
+  background: #fff;
+  object-fit: contain;
+  padding: 0.4rem 0.55rem;
 }
 
 .memory-receipt-overlay .tactile-button {
@@ -4868,9 +4868,9 @@ button {
 }
 
 .memory-receipt-paper__logo img {
-  width: 5rem;
-  height: 5rem;
-  object-fit: cover;
+  width: 8rem;
+  height: auto;
+  object-fit: contain;
 }
 
 .memory-receipt-paper__rule {
@@ -5005,8 +5005,9 @@ button {
   }
 
   .memory-receipt-machine-logo {
-    width: 1.85rem;
+    width: 6rem;
     height: 1.85rem;
+    padding: 0.3rem 0.4rem;
   }
 
   .memory-receipt-overlay .tactile-button {
@@ -5078,8 +5079,8 @@ button {
   }
 
   .memory-receipt-paper__logo img {
-    width: 3.25rem;
-    height: 3.25rem;
+    width: 6rem;
+    height: auto;
   }
 
   .memory-receipt-paper__rule {
@@ -7783,7 +7784,7 @@ button {
 
 .memcode-sidebar__brand {
   display: grid;
-  width: 46px;
+  width: 68px;
   height: 46px;
   flex: 0 0 auto;
   place-items: center;
@@ -7792,11 +7793,13 @@ button {
 }
 
 .memcode-sidebar__brand img {
-  width: 38px;
-  height: 38px;
+  width: 64px;
+  height: 28px;
   border: 1px solid rgba(var(--brain-lime-rgb), 0.34);
-  border-radius: 10px;
-  object-fit: cover;
+  border-radius: 6px;
+  background: #fff;
+  object-fit: contain;
+  padding: 4px;
   box-shadow: 0 0 20px rgba(var(--brain-lime-rgb), 0.1);
 }
 
@@ -14258,14 +14261,14 @@ button.brain-bento-card:hover {
   }
 
   .memcode-sidebar__brand {
-    width: 42px;
+    width: 64px;
     min-height: 42px;
     flex: 0 0 auto;
   }
 
   .memcode-sidebar__brand img {
-    width: 34px;
-    height: 34px;
+    width: 58px;
+    height: 26px;
   }
 
   .memcode-sidebar__wordmark,

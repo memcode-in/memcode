@@ -156,10 +156,9 @@ export default function OAuthAuthorizePage() {
       <section className="oauth-card" aria-labelledby="oauth-title">
         <div className="oauth-brand">
           <span className="oauth-brand__icon">
-            <img src="/logo.jpeg" alt="" />
+            <img src="/logo.svg" alt="MemCode" />
           </span>
           <div>
-            <strong>MemCode</strong>
             <small>Secure authorization</small>
           </div>
         </div>

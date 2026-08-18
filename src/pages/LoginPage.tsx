@@ -200,8 +200,7 @@ export default function LoginPage() {
 
       <section className="auth-card auth-card--login" aria-labelledby="login-title">
         <div className="brand auth-card__brand">
-          <span className="brand__mark"><img src="/logo.jpeg" alt="" /></span>
-          <span className="brand__name">memCode</span>
+          <span className="brand__mark"><img src="/logo.svg" alt="MemCode" /></span>
         </div>
 
         <div className="auth-card__header">
