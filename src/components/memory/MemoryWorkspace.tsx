@@ -7,6 +7,12 @@ import {
   type MemoryNode,
 } from '../../lib/memory-graph'
 import { DEMO_MEMORY_GRAPH } from '../../lib/demo-memory-graph'
+import {
+  fetchPersonalMemories,
+  PersonalMemoriesHttpError,
+  type PersonalMemoryItem,
+  type PersonalMemoryPage,
+} from '../../lib/personal-memories'
 import { GooeyInput } from '../ui/gooey-input'
 import { MemoryFolder } from '../ui/memory-folder'
 
@@ -160,38 +166,60 @@ function MemoryGraphPanel({
   )
 }
 
+function memoryItemText(item: PersonalMemoryItem) {
+  return item.content.trim() || 'Structured memory record'
+}
+
+function memoryItemTitle(item: PersonalMemoryItem) {
+  const text = memoryItemText(item)
+  return text.length > 64 ? `${text.slice(0, 61)}...` : text
+}
+
+function memoryItemDate(item: PersonalMemoryItem) {
+  const metadataDate = item.metadata.date || item.metadata.year
+  return String(item.updated_at || item.created_at || metadataDate || 'Memory record')
+}
+
 function MemoryDocumentsPanel({
   data,
+  page,
+  loading,
   search,
+  onPageChange,
   onSearchChange,
 }: {
-  data: MemoryGraphData
+  data: PersonalMemoryPage
+  page: number
+  loading: boolean
   search: string
+  onPageChange: (page: number) => void
   onSearchChange: (value: string) => void
 }) {
-  const [page, setPage] = useState(1)
-  const [selectedNode, setSelectedNode] = useState<MemoryNode | null>(null)
-  const filteredNodes = useMemo(() => {
+  const [selectedMemory, setSelectedMemory] = useState<PersonalMemoryItem | null>(null)
+  const filteredItems = useMemo(() => {
     const query = search.trim().toLowerCase()
-    return data.nodes.filter((node) => (
-      !query || `${node.label} ${memoryText(node)}`.toLowerCase().includes(query)
+    return data.items.filter((item) => (
+      !query || `${item.domain} ${memoryItemText(item)}`.toLowerCase().includes(query)
     ))
-  }, [data.nodes, search])
-  const totalPages = Math.max(1, Math.ceil(filteredNodes.length / DOCUMENTS_PER_PAGE))
-  const currentPage = Math.min(page, totalPages)
-  const pageNodes = filteredNodes.slice((currentPage - 1) * DOCUMENTS_PER_PAGE, currentPage * DOCUMENTS_PER_PAGE)
+  }, [data.items, search])
+  const totalPages = Math.max(1, Math.ceil(data.total_memories / data.limit))
+
+  const changePage = (nextPage: number) => {
+    setSelectedMemory(null)
+    onPageChange(nextPage)
+  }
 
   return (
     <section className="memory-documents-panel">
       <div className="memory-documents-panel__controls">
         <nav aria-label="Memory documents">
-          <button type="button" className="is-active" aria-current="page" onClick={() => setPage(1)}>
+          <button type="button" className="is-active" aria-current="page" onClick={() => changePage(1)}>
             All folders <span>{data.total_memories.toLocaleString()}</span>
           </button>
         </nav>
         <GooeyInput
           value={search}
-          placeholder="Search memories"
+          placeholder="Search this page"
           collapsedWidth={142}
           expandedWidth={270}
           expandedOffset={44}
@@ -206,42 +234,42 @@ function MemoryDocumentsPanel({
           }}
         />
       </div>
-      {pageNodes.length ? (
+      {filteredItems.length ? (
         <div className="memory-documents-grid">
-          {pageNodes.map((node) => (
+          {filteredItems.map((item) => (
             <MemoryFolder
-              key={node.id}
-              title={node.label}
+              key={item.id}
+              title={memoryItemTitle(item)}
               domain="Memory"
-              summary={memoryText(node)}
-              date={String(node.metadata.date || node.metadata.year || 'Memory record')}
-              selected={selectedNode?.id === node.id}
-              onOpen={() => setSelectedNode(node)}
+              summary={memoryItemText(item)}
+              date={memoryItemDate(item)}
+              selected={selectedMemory?.id === item.id}
+              onOpen={() => setSelectedMemory(item)}
             />
           ))}
         </div>
       ) : <div className="memory-workspace__empty"><strong>No matching memories</strong><p>Try another search or folder.</p></div>}
       {totalPages > 1 ? (
         <footer className="memory-documents-panel__pagination">
-          <button type="button" disabled={currentPage === 1} onClick={() => setPage((value) => Math.max(1, value - 1))}>Previous</button>
-          <span>Page {currentPage} of {totalPages}</span>
-          <button type="button" disabled={currentPage === totalPages} onClick={() => setPage((value) => Math.min(totalPages, value + 1))}>Next</button>
+          <button type="button" disabled={loading || page === 1} onClick={() => changePage(Math.max(1, page - 1))}>Previous</button>
+          <span>Page {page} of {totalPages}</span>
+          <button type="button" disabled={loading || !data.has_more} onClick={() => changePage(Math.min(totalPages, page + 1))}>Next</button>
         </footer>
       ) : null}
-      {selectedNode ? (
+      {selectedMemory ? (
         <aside className="memory-document-preview" aria-live="polite">
-          <button type="button" aria-label="Close memory preview" onClick={() => setSelectedNode(null)}>×</button>
+          <button type="button" aria-label="Close memory preview" onClick={() => setSelectedMemory(null)}>×</button>
           <span>Memory</span>
-          <h2>{selectedNode.label}</h2>
-          <p>{memoryText(selectedNode)}</p>
-          <small>{selectedNode.id}</small>
+          <h2>{memoryItemTitle(selectedMemory)}</h2>
+          <p>{memoryItemText(selectedMemory)}</p>
+          <small>{selectedMemory.id}</small>
         </aside>
       ) : null}
     </section>
   )
 }
 
-export default function MemoryWorkspace({ mode, token, demoMode, onAuthenticationRequired }: MemoryWorkspaceProps) {
+function MemoryGraphWorkspace({ token, demoMode, onAuthenticationRequired }: Omit<MemoryWorkspaceProps, 'mode'>) {
   const [data, setData] = useState<MemoryGraphData | null>(() => demoMode ? DEMO_MEMORY_GRAPH : null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(!demoMode)
@@ -287,12 +315,103 @@ export default function MemoryWorkspace({ mode, token, demoMode, onAuthenticatio
     return <section className="memory-workspace memory-workspace--state"><strong>No memories yet.</strong><p>Saved context will appear here as a graph and document library.</p></section>
   }
 
+  return <section className="memory-workspace">{error ? <div className="dashboard-alert" role="status">{error}</div> : null}<MemoryGraphPanel data={data} search={search} onSearchChange={setSearch} /></section>
+}
+
+function demoMemoryPage(page: number): PersonalMemoryPage {
+  const offset = (page - 1) * DOCUMENTS_PER_PAGE
+  const items = DEMO_MEMORY_GRAPH.nodes.slice(offset, offset + DOCUMENTS_PER_PAGE).map((node) => ({
+    id: node.id,
+    domain: node.type,
+    content: memoryText(node),
+    content_complete: true,
+    metadata: node.metadata,
+    created_at: null,
+    updated_at: null,
+  }))
+  return {
+    items,
+    total_memories: DEMO_MEMORY_GRAPH.total_memories,
+    limit: DOCUMENTS_PER_PAGE,
+    offset,
+    has_more: offset + items.length < DEMO_MEMORY_GRAPH.total_memories,
+  }
+}
+
+function MemoryDocumentsWorkspace({ token, demoMode, onAuthenticationRequired }: Omit<MemoryWorkspaceProps, 'mode'>) {
+  const [page, setPage] = useState(1)
+  const [data, setData] = useState<PersonalMemoryPage | null>(() => demoMode ? demoMemoryPage(1) : null)
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState(!demoMode)
+  const [search, setSearch] = useState('')
+
+  const load = useCallback(async (signal?: AbortSignal) => {
+    if (demoMode) {
+      setData(demoMemoryPage(page))
+      setError(null)
+      setLoading(false)
+      return
+    }
+    if (!token) return
+    setLoading(true)
+    setError(null)
+    try {
+      const nextPage = await fetchPersonalMemories(token, {
+        limit: DOCUMENTS_PER_PAGE,
+        offset: (page - 1) * DOCUMENTS_PER_PAGE,
+        signal,
+      })
+      const lastPage = Math.max(1, Math.ceil(nextPage.total_memories / nextPage.limit))
+      if (page > lastPage) {
+        setPage(lastPage)
+        return
+      }
+      setData(nextPage)
+    } catch (nextError) {
+      if (signal?.aborted) return
+      if (nextError instanceof PersonalMemoriesHttpError && nextError.status === 401) {
+        onAuthenticationRequired()
+        return
+      }
+      setError(nextError instanceof Error ? nextError.message : 'Memory documents are temporarily unavailable.')
+    } finally {
+      if (!signal?.aborted) setLoading(false)
+    }
+  }, [demoMode, onAuthenticationRequired, page, token])
+
+  useEffect(() => {
+    const controller = new AbortController()
+    void load(controller.signal)
+    return () => controller.abort()
+  }, [load])
+
+  if (loading && !data) {
+    return <section className="memory-workspace memory-workspace--state" role="status"><span className="memory-workspace__spinner" /><strong>Loading memory documents…</strong></section>
+  }
+  if (error && !data) {
+    return <section className="memory-workspace memory-workspace--state" role="alert"><strong>Memory documents could not be loaded.</strong><p>{error}</p><button type="button" onClick={() => void load()}>Try again</button></section>
+  }
+  if (!data || data.total_memories === 0) {
+    return <section className="memory-workspace memory-workspace--state"><strong>No memories yet.</strong><p>Saved context will appear here as a document library.</p></section>
+  }
+
   return (
     <section className="memory-workspace">
       {error ? <div className="dashboard-alert" role="status">{error}</div> : null}
-      {mode === 'graph'
-        ? <MemoryGraphPanel data={data} search={search} onSearchChange={setSearch} />
-        : <MemoryDocumentsPanel data={data} search={search} onSearchChange={setSearch} />}
+      <MemoryDocumentsPanel
+        data={data}
+        page={page}
+        loading={loading}
+        search={search}
+        onPageChange={setPage}
+        onSearchChange={setSearch}
+      />
     </section>
   )
+}
+
+export default function MemoryWorkspace(props: MemoryWorkspaceProps) {
+  return props.mode === 'graph'
+    ? <MemoryGraphWorkspace {...props} />
+    : <MemoryDocumentsWorkspace {...props} />
 }
