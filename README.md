@@ -1,119 +1,190 @@
-<div align="center">
-  <img width="300" alt="MemCode logo" src="https://raw.githubusercontent.com/memcode-in/memcode/main/public/logo.svg" />
+<img src="docs/source/mypy_light.svg" alt="mypy logo" width="300px"/>
 
-</div>
+Mypy: Static Typing for Python
+=======================================
 
-<div align="center">
+[![Stable Version](https://img.shields.io/pypi/v/mypy?color=blue)](https://pypi.org/project/mypy/)
+[![Downloads](https://img.shields.io/pypi/dm/mypy)](https://pypistats.org/packages/mypy)
+[![Build Status](https://github.com/python/mypy/actions/workflows/test.yml/badge.svg)](https://github.com/python/mypy/actions)
+[![Documentation Status](https://readthedocs.org/projects/mypy/badge/?version=latest)](https://mypy.readthedocs.io/en/latest/?badge=latest)
+[![Chat at https://gitter.im/python/typing](https://badges.gitter.im/python/typing.svg)](https://gitter.im/python/typing?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Checked with mypy](https://www.mypy-lang.org/static/mypy_badge.svg)](https://mypy-lang.org/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Linting: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-  <p><strong>End-to-end memory infrastructure for AI.</strong></p>
+Got a question?
+---------------
 
-  <p>
-    Give agents, copilots, applications, and workflows persistent memory that
-    survives sessions, context windows, and model changes.
-  </p>
+We are always happy to answer questions! Here are some good places to ask them:
 
-  <img src="https://img.shields.io/badge/Memory-End--to--End-7C3AED" alt="End-to-end Memory"/>
-  <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black" alt="React 19"/>
-  <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript&logoColor=white" alt="TypeScript"/>
-  <br/>
-  <img src="https://img.shields.io/badge/Vite-6-646CFF?logo=vite&logoColor=white" alt="Vite"/>
-  <img src="https://img.shields.io/badge/Cloudflare-Workers-F38020?logo=cloudflare&logoColor=white" alt="Cloudflare"/>
-  <img src="https://img.shields.io/badge/Status-Active%20Development-22C55E" alt="Active Development"/>
-</div>
+- for general questions about Python typing, try [typing discussions](https://github.com/python/typing/discussions)
+- for anything you're curious about, try [gitter chat](https://gitter.im/python/typing)
 
-<hr/>
-## Why Memory
+If you're just getting started,
+[the documentation](https://mypy.readthedocs.io/en/stable/index.html)
+and [type hints cheat sheet](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html)
+can also help answer questions.
 
-AI systems are powerful inside their current context window, but that context is temporary. Important decisions, user preferences, previous interactions, and learned knowledge disappear between sessions.
+If you think you've found a bug:
 
-A larger prompt is not the same as memory.
+- check our [common issues page](https://mypy.readthedocs.io/en/stable/common_issues.html)
+- search our [issue tracker](https://github.com/python/mypy/issues) to see if
+  it's already been reported
 
-Real memory must be:
+To report a bug or request an enhancement:
 
-- **Persistent** across sessions and model changes
-- **Selective** about what deserves to be remembered
-- **Grounded** in sources and provenance
-- **Queryable** through semantic and structured retrieval
-- **Inspectable** by the people operating the system
-- **Governed** with clear access and retention controls
+- report at [our issue tracker](https://github.com/python/mypy/issues)
+- if the issue is with a specific library or function, consider reporting it at
+  [typeshed tracker](https://github.com/python/typeshed/issues) or the issue
+  tracker for that library
 
-MemCode is building this layer as infrastructure rather than another temporary context workaround.
+To discuss a new type system feature:
 
+- discuss at [discuss.python.org](https://discuss.python.org/c/typing/32)
+- there is also some historical discussion at the [typing-sig mailing list](https://mail.python.org/archives/list/typing-sig@python.org/) and the [python/typing repo](https://github.com/python/typing/issues)
 
+What is mypy?
+-------------
 
+Mypy is a static type checker for Python.
 
-## Development
+Type checkers help ensure that you're using variables and functions in your code
+correctly. With mypy, add type hints ([PEP 484](https://www.python.org/dev/peps/pep-0484/))
+to your Python programs, and mypy will warn you when you use those types
+incorrectly.
 
-### Prerequisites
+Python is a dynamic language, so usually you'll only see errors in your code
+when you attempt to run it. Mypy is a *static* checker, so it finds bugs
+in your programs without even running them!
 
-- Node.js
-- npm
+Here is a small example to whet your appetite:
 
-### Install dependencies
-
-```bash
-npm install
+```python
+number = input("What is your favourite number?")
+print("It is", number + 1)  # error: Unsupported operand types for + ("str" and "int")
 ```
 
-### Configure the environment
+Adding type hints for mypy does not interfere with the way your program would
+otherwise run. Think of type hints as similar to comments! You can always use
+the Python interpreter to run your code, even if mypy reports errors.
 
-Copy the provided environment template:
+Mypy is designed with gradual typing in mind. This means you can add type
+hints to your code base slowly and that you can always fall back to dynamic
+typing when static typing is not convenient.
 
-```bash
-cp .env.example .env.local
-```
+Mypy has a powerful and easy-to-use type system, supporting features such as
+type inference, generics, callable types, tuple types, union types,
+structural subtyping and more. Using mypy will make your programs easier to
+understand, debug, and maintain.
 
-Update the values for your local or hosted environment. Do not commit production credentials or private keys.
+See [the documentation](https://mypy.readthedocs.io/en/stable/index.html) for
+more examples and information.
 
-### Start development
+In particular, see:
 
-```bash
-npm run dev
-```
+- [type hints cheat sheet](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html)
+- [getting started](https://mypy.readthedocs.io/en/stable/getting_started.html)
+- [list of error codes](https://mypy.readthedocs.io/en/stable/error_code_list.html)
 
-### Create a production build
+Quick start
+-----------
 
-```bash
-npm run build
-```
-
-## Validation
-
-Run the focused dashboard checks with:
-
-```bash
-npm run test:byok-usage
-npm run test:runtime-settings
-```
-
-The production build also runs TypeScript validation before generating the Vite bundle.
-
-## Deployment
-
-The dashboard is configured for deployment through Cloudflare:
+Mypy can be installed using pip:
 
 ```bash
-npm run build
-npx wrangler deploy
+python3 -m pip install -U mypy
 ```
 
-Production environment variables should be configured through the deployment platform rather than committed to the repository.
+If you want to run the latest version of the code, you can install from the
+repo directly:
 
-The primary dashboard is available at [app.memcode.in](https://app.memcode.in).
+```bash
+python3 -m pip install -U git+https://github.com/python/mypy.git
+```
 
-## Project Status
+Now you can type-check the [statically typed parts] of a program like this:
 
-MemCode is under active development. APIs, interfaces, and infrastructure may evolve as we improve retrieval quality, memory evaluation, integrations, and developer experience.
+```bash
+mypy PROGRAM
+```
 
-We are building toward a world where every AI system can remember selectively, retrieve reliably, and improve continuously.
+You can always use the Python interpreter to run your statically typed
+programs, even if mypy reports type errors:
 
+```bash
+python3 PROGRAM
+```
 
-<div align="center">
-  <p><strong>Building memory infrastructure for AI, end to end.</strong></p>
+If you are working with large code bases, you can run mypy in
+[daemon mode], that will give much faster (often sub-second) incremental updates:
 
-  <p>
-    <a href="https://memcode.in">Website</a>
-    &nbsp;&bull;&nbsp;
-    <a href="https://app.memcode.in">Dashboard</a>
-  </p>
-</div>
+```bash
+dmypy run -- PROGRAM
+```
+
+You can also try mypy in an [online playground](https://mypy-play.net/) (developed by
+Yusuke Miyazaki).
+
+[statically typed parts]: https://mypy.readthedocs.io/en/latest/getting_started.html#function-signatures-and-dynamic-vs-static-typing
+[daemon mode]: https://mypy.readthedocs.io/en/stable/mypy_daemon.html
+
+Integrations
+------------
+
+Mypy can be integrated into popular IDEs:
+
+- VS Code: provides [basic integration](https://code.visualstudio.com/docs/python/linting#_mypy) with mypy.
+- Vim:
+  - Using [Syntastic](https://github.com/vim-syntastic/syntastic): in `~/.vimrc` add
+    `let g:syntastic_python_checkers=['mypy']`
+  - Using [ALE](https://github.com/dense-analysis/ale): should be enabled by default when `mypy` is installed,
+    or can be explicitly enabled by adding `let b:ale_linters = ['mypy']` in `~/vim/ftplugin/python.vim`
+- Emacs: using [Flycheck](https://github.com/flycheck/)
+- Sublime Text: [SublimeLinter-contrib-mypy](https://github.com/fredcallaway/SublimeLinter-contrib-mypy)
+- PyCharm: [mypy plugin](https://github.com/dropbox/mypy-PyCharm-plugin)
+- IDLE: [idlemypyextension](https://github.com/CoolCat467/idlemypyextension)
+- pre-commit: use [pre-commit mirrors-mypy](https://github.com/pre-commit/mirrors-mypy), although
+  note by default this will limit mypy's ability to analyse your third party dependencies.
+
+Web site and documentation
+--------------------------
+
+Additional information is available at the web site:
+
+  <https://www.mypy-lang.org/>
+
+Jump straight to the documentation:
+
+  <https://mypy.readthedocs.io/>
+
+Follow along our changelog at:
+
+  <https://mypy-lang.blogspot.com/>
+
+Contributing
+------------
+
+Help in testing, development, documentation and other tasks is
+highly appreciated and useful to the project. There are tasks for
+contributors of all experience levels.
+
+To get started with developing mypy, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Mypyc and compiled version of mypy
+----------------------------------
+
+[Mypyc](https://github.com/mypyc/mypyc) uses Python type hints to compile Python
+modules to faster C extensions. Mypy is itself compiled using mypyc: this makes
+mypy approximately 4 times faster than if interpreted!
+
+To install an interpreted mypy instead, use:
+
+```bash
+python3 -m pip install --no-binary mypy -U mypy
+```
+
+To use a compiled version of a development
+version of mypy, directly install a binary from
+<https://github.com/mypyc/mypy_mypyc-wheels/releases/latest>.
+
+To contribute to the mypyc project, check out the issue tracker at <https://github.com/mypyc/mypyc>
