@@ -49,7 +49,7 @@ from typing import Any, Final, TypeAlias as _TypeAlias
 CACHE_PATH: Final = ".incremental_checker_cache.json"
 MYPY_REPO_URL: Final = "https://github.com/python/mypy.git"
 MYPY_TARGET_FILE: Final = "mypy"
-DAEMON_CMD: Final = ["python3", "-m", "mypy.dmypy"]
+DAEMON_CMD: Final = ["python3", "-m", "mypy.memcode"]
 
 JsonDict: _TypeAlias = dict[str, Any]
 

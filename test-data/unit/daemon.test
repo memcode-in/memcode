@@ -1,80 +1,80 @@
--- End-to-end test cases for the daemon (dmypy).
+-- End-to-end test cases for the daemon (memcode).
 -- These are special because they run multiple shell commands.
 
 [case testDaemonStartStop]
-$ dmypy start -- --follow-imports=error
+$ memcode start -- --follow-imports=error
 Daemon started
-$ dmypy stop
+$ memcode stop
 Daemon stopped
 
 [case testDaemonBasic]
-$ dmypy start -- --follow-imports=error
+$ memcode start -- --follow-imports=error
 Daemon started
-$ dmypy check -- foo.py
+$ memcode check -- foo.py
 Success: no issues found in 1 source file
-$ dmypy recheck
+$ memcode recheck
 Success: no issues found in 1 source file
-$ dmypy stop
+$ memcode stop
 Daemon stopped
 [file foo.py]
 def f(): pass
 
 [case testDaemonRun]
-$ dmypy run -- foo.py --follow-imports=error
+$ memcode run -- foo.py --follow-imports=error
 Daemon started
 Success: no issues found in 1 source file
-$ dmypy stop
+$ memcode stop
 Daemon stopped
 [file foo.py]
 def f(): pass
 
 [case testDaemonRunIgnoreMissingImports]
-$ dmypy run -- foo.py --follow-imports=error --ignore-missing-imports
+$ memcode run -- foo.py --follow-imports=error --ignore-missing-imports
 Daemon started
 Success: no issues found in 1 source file
-$ dmypy stop
+$ memcode stop
 Daemon stopped
 [file foo.py]
 def f(): pass
 
 [case testDaemonRunErrorCodes]
-$ dmypy run -- foo.py --follow-imports=error --disable-error-code=type-abstract
+$ memcode run -- foo.py --follow-imports=error --disable-error-code=type-abstract
 Daemon started
 Success: no issues found in 1 source file
-$ dmypy stop
+$ memcode stop
 Daemon stopped
 [file foo.py]
 def f(): pass
 
 [case testDaemonRunCombinedOptions]
-$ dmypy run -- foo.py --follow-imports=error --ignore-missing-imports --disable-error-code=type-abstract
+$ memcode run -- foo.py --follow-imports=error --ignore-missing-imports --disable-error-code=type-abstract
 Daemon started
 Success: no issues found in 1 source file
-$ dmypy stop
+$ memcode stop
 Daemon stopped
 [file foo.py]
 def f(): pass
 
 [case testDaemonIgnoreConfigFiles]
-$ dmypy start -- --follow-imports=error
+$ memcode start -- --follow-imports=error
 Daemon started
 [file mypy.ini]
 \[mypy]
 files = ./foo.py
 
 [case testDaemonRunMultipleStrict]
-$ dmypy run -- foo.py --strict --follow-imports=error
+$ memcode run -- foo.py --strict --follow-imports=error
 Daemon started
 foo.py:1: error: Function is missing a return type annotation
 foo.py:1: note: Use "-> None" if function does not return a value
 Found 1 error in 1 file (checked 1 source file)
 == Return code: 1
-$ dmypy run -- bar.py --strict --follow-imports=error
+$ memcode run -- bar.py --strict --follow-imports=error
 bar.py:1: error: Function is missing a return type annotation
 bar.py:1: note: Use "-> None" if function does not return a value
 Found 1 error in 1 file (checked 1 source file)
 == Return code: 1
-$ dmypy run -- foo.py --strict --follow-imports=error
+$ memcode run -- foo.py --strict --follow-imports=error
 foo.py:1: error: Function is missing a return type annotation
 foo.py:1: note: Use "-> None" if function does not return a value
 Found 1 error in 1 file (checked 1 source file)
@@ -85,14 +85,14 @@ def f(): pass
 def f(): pass
 
 [case testDaemonRunRestart]
-$ dmypy run -- foo.py --follow-imports=error
+$ memcode run -- foo.py --follow-imports=error
 Daemon started
 Success: no issues found in 1 source file
-$ dmypy run -- foo.py --follow-imports=error
+$ memcode run -- foo.py --follow-imports=error
 Success: no issues found in 1 source file
 $ {python} -c "print('[mypy]')" >mypy.ini
 $ {python} -c "print('disallow_untyped_defs = True')" >>mypy.ini
-$ dmypy run -- foo.py --follow-imports=error
+$ memcode run -- foo.py --follow-imports=error
 Restarting: configuration changed
 Daemon stopped
 Daemon started
@@ -101,22 +101,22 @@ foo.py:1: note: Use "-> None" if function does not return a value
 Found 1 error in 1 file (checked 1 source file)
 == Return code: 1
 $ {python} -c "print('def f() -> None: pass')" >foo.py
-$ dmypy run -- foo.py --follow-imports=error
+$ memcode run -- foo.py --follow-imports=error
 Success: no issues found in 1 source file
-$ dmypy stop
+$ memcode stop
 Daemon stopped
 [file foo.py]
 def f(): pass
 
 [case testDaemonRunRestartPretty]
-$ dmypy run -- foo.py --follow-imports=error --pretty
+$ memcode run -- foo.py --follow-imports=error --pretty
 Daemon started
 Success: no issues found in 1 source file
-$ dmypy run -- foo.py --follow-imports=error --pretty
+$ memcode run -- foo.py --follow-imports=error --pretty
 Success: no issues found in 1 source file
 $ {python} -c "print('[mypy]')" >mypy.ini
 $ {python} -c "print('disallow_untyped_defs = True')" >>mypy.ini
-$ dmypy run -- foo.py --follow-imports=error --pretty
+$ memcode run -- foo.py --follow-imports=error --pretty
 Restarting: configuration changed
 Daemon stopped
 Daemon started
@@ -127,23 +127,23 @@ foo.py:1: note: Use "-> None" if function does not return a value
 Found 1 error in 1 file (checked 1 source file)
 == Return code: 1
 $ {python} -c "print('def f() -> None: pass')" >foo.py
-$ dmypy run -- foo.py --follow-imports=error --pretty
+$ memcode run -- foo.py --follow-imports=error --pretty
 Success: no issues found in 1 source file
-$ dmypy stop
+$ memcode stop
 Daemon stopped
 [file foo.py]
 def f():
      pass
 
 [case testDaemonRunRestartPluginVersion]
-$ dmypy run -- foo.py --no-error-summary
+$ memcode run -- foo.py --no-error-summary
 Daemon started
 $ {python} -c "print(' ')" >> plug.py
-$ dmypy run -- foo.py --no-error-summary
+$ memcode run -- foo.py --no-error-summary
 Restarting: plugins changed
 Daemon stopped
 Daemon started
-$ dmypy stop
+$ memcode stop
 Daemon stopped
 [file mypy.ini]
 \[mypy]
@@ -157,25 +157,25 @@ class Dummy(Plugin): pass
 def plugin(version): return Dummy
 
 [case testDaemonRunRestartGlobs]
--- Ensure dmypy is not restarted if the configuration doesn't change and it contains globs
+-- Ensure memcode is not restarted if the configuration doesn't change and it contains globs
 -- Note: Backslash path separator in output is replaced with forward slash so the same test succeeds on Windows as well
-$ dmypy run -- foo --follow-imports=error
+$ memcode run -- foo --follow-imports=error
 Daemon started
 foo/lol.py:1: error: Name "fail" is not defined
 Found 1 error in 1 file (checked 3 source files)
 == Return code: 1
-$ dmypy run -- foo --follow-imports=error
+$ memcode run -- foo --follow-imports=error
 foo/lol.py:1: error: Name "fail" is not defined
 Found 1 error in 1 file (checked 3 source files)
 == Return code: 1
 $ {python} -c "print('[mypy]')" >mypy.ini
 $ {python} -c "print('ignore_errors=True')" >>mypy.ini
-$ dmypy run -- foo --follow-imports=error
+$ memcode run -- foo --follow-imports=error
 Restarting: configuration changed
 Daemon stopped
 Daemon started
 Success: no issues found in 3 source files
-$ dmypy stop
+$ memcode stop
 Daemon stopped
 [file mypy.ini]
 \[mypy]
@@ -190,57 +190,57 @@ fail
 a: int = 1
 
 [case testDaemonStatusKillRestartRecheck]
-$ dmypy status
+$ memcode status
 No status file found
 == Return code: 2
-$ dmypy stop
+$ memcode stop
 No status file found
 == Return code: 2
-$ dmypy kill
+$ memcode kill
 No status file found
 == Return code: 2
-$ dmypy recheck
+$ memcode recheck
 No status file found
 == Return code: 2
-$ dmypy start --  --follow-imports=error --no-error-summary
+$ memcode start --  --follow-imports=error --no-error-summary
 Daemon started
-$ dmypy status
+$ memcode status
 Daemon is up and running
-$ dmypy start
+$ memcode start
 Daemon is still alive
 == Return code: 2
-$ dmypy restart --  --follow-imports=error --no-error-summary
+$ memcode restart --  --follow-imports=error --no-error-summary
 Daemon stopped
 Daemon started
-$ dmypy stop
+$ memcode stop
 Daemon stopped
-$ dmypy status
+$ memcode status
 No status file found
 == Return code: 2
-$ dmypy restart --  --follow-imports=error --no-error-summary
+$ memcode restart --  --follow-imports=error --no-error-summary
 Daemon started
-$ dmypy recheck
+$ memcode recheck
 Command 'recheck' is only valid after a 'check' command
 == Return code: 2
-$ dmypy kill
+$ memcode kill
 Daemon killed
-$ dmypy status
+$ memcode status
 Daemon has died
 == Return code: 2
 
 [case testDaemonRecheck]
-$ dmypy start -- --follow-imports=error --no-error-summary
+$ memcode start -- --follow-imports=error --no-error-summary
 Daemon started
-$ dmypy check foo.py bar.py
-$ dmypy recheck
-$ dmypy recheck --update foo.py --remove bar.py sir_not_appearing_in_this_film.py
+$ memcode check foo.py bar.py
+$ memcode recheck
+$ memcode recheck --update foo.py --remove bar.py sir_not_appearing_in_this_film.py
 foo.py:1: error: Import of "bar" ignored  [misc]
 foo.py:1: note: (Using --follow-imports=error, module not passed on command line)
 == Return code: 1
-$ dmypy recheck --update bar.py
-$ dmypy recheck --update sir_not_appearing_in_this_film.py
-$ dmypy recheck --update --remove
-$ dmypy stop
+$ memcode recheck --update bar.py
+$ memcode recheck --update sir_not_appearing_in_this_film.py
+$ memcode recheck --update --remove
+$ memcode stop
 Daemon stopped
 [file foo.py]
 import bar
@@ -248,42 +248,42 @@ import bar
 pass
 
 [case testDaemonTimeout]
-$ dmypy start --timeout 1 -- --follow-imports=error
+$ memcode start --timeout 1 -- --follow-imports=error
 Daemon started
 $ {python} -c "import time;time.sleep(1)"
-$ dmypy status
+$ memcode status
 No status file found
 == Return code: 2
 
 [case testDaemonRunNoTarget]
-$ dmypy run -- --follow-imports=error
+$ memcode run -- --follow-imports=error
 Daemon started
 mypy-daemon: error: Missing target module, package, files, or command.
 == Return code: 2
-$ dmypy stop
+$ memcode stop
 Daemon stopped
 
 [case testDaemonRunTwoFilesFullTypeshed]
-$ dmypy run x.py
+$ memcode run x.py
 Daemon started
 Success: no issues found in 1 source file
-$ dmypy run y.py
+$ memcode run y.py
 Success: no issues found in 1 source file
-$ dmypy run x.py
+$ memcode run x.py
 Success: no issues found in 1 source file
 [file x.py]
 [file y.py]
 
 [case testDaemonCheckTwoFilesFullTypeshed]
-$ dmypy start
+$ memcode start
 Daemon started
-$ dmypy check foo.py
+$ memcode check foo.py
 foo.py:3: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
 Found 1 error in 1 file (checked 1 source file)
 == Return code: 1
-$ dmypy check bar.py
+$ memcode check bar.py
 Success: no issues found in 1 source file
-$ dmypy check foo.py
+$ memcode check foo.py
 foo.py:3: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
 Found 1 error in 1 file (checked 1 source file)
 == Return code: 1
@@ -296,13 +296,13 @@ def add(a, b) -> str:
     return a + b
 
 [case testDaemonWarningSuccessExitCode-posix]
-$ dmypy run -- foo.py --follow-imports=error --python-version=3.11
+$ memcode run -- foo.py --follow-imports=error --python-version=3.11
 Daemon started
 foo.py:2: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs
 Success: no issues found in 1 source file
 $ echo $?
 0
-$ dmypy stop
+$ memcode stop
 Daemon stopped
 [file foo.py]
 def foo():
@@ -320,19 +320,19 @@ $ {python} -c "import shutil; shutil.copy('.mypy_cache/3.11/bar.meta.ff', 'asdf.
 -- update bar's timestamp but don't change the file
 $ {python} -c "import time;time.sleep(1)"
 $ {python} -c "print('x=1')" >bar.py
-$ dmypy run -- foo.py bar.py --follow-imports=error --use-fine-grained-cache --no-sqlite-cache --python-version=3.11
+$ memcode run -- foo.py bar.py --follow-imports=error --use-fine-grained-cache --no-sqlite-cache --python-version=3.11
 Daemon started
 Success: no issues found in 2 source files
-$ dmypy status --fswatcher-dump-file test.json
+$ memcode status --fswatcher-dump-file test.json
 Daemon is up and running
-$ dmypy stop
+$ memcode stop
 Daemon stopped
 -- copy the original bar cache file back so that the mtime mismatches
 $ {python} -c "import shutil; shutil.copy('asdf.ff', '.mypy_cache/3.11/bar.meta.ff')"
 -- sleep guarantees timestamp changes
 $ {python} -c "import time;time.sleep(1)"
 $ {python} -c "print('lol')" >foo.py
-$ dmypy run --log-file=log -- foo.py bar.py --follow-imports=error --use-fine-grained-cache --no-sqlite-cache --python-version=3.11 --quickstart-file test.json
+$ memcode run --log-file=log -- foo.py bar.py --follow-imports=error --use-fine-grained-cache --no-sqlite-cache --python-version=3.11 --quickstart-file test.json
 Daemon started
 foo.py:1: error: Name "lol" is not defined
 Found 1 error in 1 file (checked 2 source files)
@@ -344,34 +344,34 @@ $ {python} -c "import sys; sys.stdout.write(open('log').read())"
 $ {python} -c "x = open('.mypy_cache/3.11/bar.meta.ff', 'rb').read(); y = open('asdf.ff', 'rb').read(); assert x == y"
 
 [case testDaemonSuggest]
-$ dmypy start --log-file log.txt -- --follow-imports=error --no-error-summary
+$ memcode start --log-file log.txt -- --follow-imports=error --no-error-summary
 Daemon started
-$ dmypy suggest foo:foo
+$ memcode suggest foo:foo
 Command 'suggest' is only valid after a 'check' command (that produces no parse errors)
 == Return code: 2
-$ dmypy check foo.py bar.py
-$ dmypy suggest foo.bar
+$ memcode check foo.py bar.py
+$ memcode suggest foo.bar
 Unknown function foo.bar
 == Return code: 2
-$ dmypy suggest foo.var
+$ memcode suggest foo.var
 Object foo.var is not a function
 == Return code: 2
-$ dmypy suggest foo.Foo.var
+$ memcode suggest foo.Foo.var
 Unknown class foo.Foo
 == Return code: 2
-$ dmypy suggest foo.Bar.baz
+$ memcode suggest foo.Bar.baz
 Unknown method foo.Bar.baz
 == Return code: 2
-$ dmypy suggest foo.foo.baz
+$ memcode suggest foo.foo.baz
 Object foo.foo is not a class
 == Return code: 2
-$ dmypy suggest --callsites foo.foo
+$ memcode suggest --callsites foo.foo
 bar.py:3: (str)
 bar.py:4: (arg=str)
-$ dmypy suggest foo.foo
+$ memcode suggest foo.foo
 (str) -> int
 $ {python} -c "import shutil; shutil.copy('foo2.py', 'foo.py')"
-$ dmypy check foo.py bar.py
+$ memcode check foo.py bar.py
 bar.py:3: error: Incompatible types in assignment (expression has type "int", variable has type "str")  [assignment]
 == Return code: 1
 [file foo.py]
@@ -393,26 +393,26 @@ def bar() -> None:
     foo(arg='xyz')
 
 [case testDaemonInspectCheck]
-$ dmypy start
+$ memcode start
 Daemon started
-$ dmypy check foo.py
+$ memcode check foo.py
 Success: no issues found in 1 source file
-$ dmypy check foo.py --export-types
+$ memcode check foo.py --export-types
 Success: no issues found in 1 source file
-$ dmypy inspect foo.py:1:1
+$ memcode inspect foo.py:1:1
 "int"
 [file foo.py]
 x = 1
 
 [case testDaemonInspectRun]
-$ dmypy run test1.py
+$ memcode run test1.py
 Daemon started
 Success: no issues found in 1 source file
-$ dmypy run test2.py
+$ memcode run test2.py
 Success: no issues found in 1 source file
-$ dmypy run test1.py --export-types
+$ memcode run test1.py --export-types
 Success: no issues found in 1 source file
-$ dmypy inspect test1.py:1:1
+$ memcode inspect test1.py:1:1
 "int"
 [file test1.py]
 a: int
@@ -420,49 +420,49 @@ a: int
 a: str
 
 [case testDaemonGetType]
-$ dmypy start --log-file log.txt -- --follow-imports=error --no-error-summary --python-version 3.10
+$ memcode start --log-file log.txt -- --follow-imports=error --no-error-summary --python-version 3.10
 Daemon started
-$ dmypy inspect foo:1:2:3:4
+$ memcode inspect foo:1:2:3:4
 Command "inspect" is only valid after a "check" command (that produces no parse errors)
 == Return code: 2
-$ dmypy check foo.py --export-types
+$ memcode check foo.py --export-types
 foo.py:3: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
 == Return code: 1
-$ dmypy inspect foo:1
+$ memcode inspect foo:1
 Format should be file:line:column[:end_line:end_column]
 == Return code: 2
-$ dmypy inspect foo:1:2:3
+$ memcode inspect foo:1:2:3
 Source file is not a Python file
 == Return code: 2
-$ dmypy inspect foo.py:1:2:a:b
+$ memcode inspect foo.py:1:2:a:b
 invalid literal for int() with base 10: 'a'
 == Return code: 2
-$ dmypy inspect foo.pyc:1:1:2:2
+$ memcode inspect foo.pyc:1:1:2:2
 Source file is not a Python file
 == Return code: 2
-$ dmypy inspect bar/baz.py:1:1:2:2
+$ memcode inspect bar/baz.py:1:1:2:2
 Unknown module: bar/baz.py
 == Return code: 1
-$ dmypy inspect foo.py:3:1:1:1
+$ memcode inspect foo.py:3:1:1:1
 "end_line" must not be before "line"
 == Return code: 2
-$ dmypy inspect foo.py:3:3:3:1
+$ memcode inspect foo.py:3:3:3:1
 "end_column" must be after "column"
 == Return code: 2
-$ dmypy inspect foo.py:3:10:3:17
+$ memcode inspect foo.py:3:10:3:17
 "str"
-$ dmypy inspect foo.py:3:10:3:17 -vv
+$ memcode inspect foo.py:3:10:3:17 -vv
 "builtins.str"
-$ dmypy inspect foo.py:9:9:9:11
+$ memcode inspect foo.py:9:9:9:11
 "int"
-$ dmypy inspect foo.py:11:1:11:3
+$ memcode inspect foo.py:11:1:11:3
 "Callable[[int | None], None]"
-$ dmypy inspect foo.py:11:1:13:1
+$ memcode inspect foo.py:11:1:13:1
 "None"
-$ dmypy inspect foo.py:1:2:3:4
+$ memcode inspect foo.py:1:2:3:4
 Can't find expression at span 1:2:3:4
 == Return code: 1
-$ dmypy inspect foo.py:17:5:17:5
+$ memcode inspect foo.py:17:5:17:5
 No known type available for "NameExpr" (maybe unreachable or try --force-reload)
 == Return code: 1
 
@@ -486,43 +486,43 @@ def unreachable(x: int) -> None:
     x  # line 17
 
 [case testDaemonGetTypeInexact]
-$ dmypy start --log-file log.txt -- --follow-imports=error --no-error-summary
+$ memcode start --log-file log.txt -- --follow-imports=error --no-error-summary
 Daemon started
-$ dmypy check foo.py --export-types
-$ dmypy inspect foo.py:1:a
+$ memcode check foo.py --export-types
+$ memcode inspect foo.py:1:a
 invalid literal for int() with base 10: 'a'
 == Return code: 2
-$ dmypy inspect foo.pyc:1:2
+$ memcode inspect foo.pyc:1:2
 Source file is not a Python file
 == Return code: 2
-$ dmypy inspect bar/baz.py:1:2
+$ memcode inspect bar/baz.py:1:2
 Unknown module: bar/baz.py
 == Return code: 1
-$ dmypy inspect foo.py:7:5 --include-span
+$ memcode inspect foo.py:7:5 --include-span
 7:5:7:5 -> "int"
 7:5:7:11 -> "int"
 7:1:7:12 -> "None"
-$ dmypy inspect foo.py:7:5 --include-kind
+$ memcode inspect foo.py:7:5 --include-kind
 NameExpr -> "int"
 OpExpr -> "int"
 CallExpr -> "None"
-$ dmypy inspect foo.py:7:5 --include-span --include-kind
+$ memcode inspect foo.py:7:5 --include-span --include-kind
 NameExpr:7:5:7:5 -> "int"
 OpExpr:7:5:7:11 -> "int"
 CallExpr:7:1:7:12 -> "None"
-$ dmypy inspect foo.py:7:5 -vv
+$ memcode inspect foo.py:7:5 -vv
 "builtins.int"
 "builtins.int"
 "None"
-$ dmypy inspect foo.py:7:5 -vv --limit=1
+$ memcode inspect foo.py:7:5 -vv --limit=1
 "builtins.int"
-$ dmypy inspect foo.py:7:3
+$ memcode inspect foo.py:7:3
 "Callable[[int], None]"
 "None"
-$ dmypy inspect foo.py:1:2
+$ memcode inspect foo.py:1:2
 Can't find any expressions at position 1:2
 == Return code: 1
-$ dmypy inspect foo.py:11:5 --force-reload
+$ memcode inspect foo.py:11:5 --force-reload
 No known type available for "NameExpr" (maybe unreachable)
 No known type available for "OpExpr" (maybe unreachable)
 == Return code: 1
@@ -541,20 +541,20 @@ def unreachable(x: int, y: int) -> None:
     x and y  # line 11
 
 [case testDaemonGetAttrs]
-$ dmypy start --log-file log.txt -- --follow-imports=error --no-error-summary
+$ memcode start --log-file log.txt -- --follow-imports=error --no-error-summary
 Daemon started
-$ dmypy check foo.py bar.py --export-types
-$ dmypy inspect foo.py:9:1 --show attrs --include-span --include-kind -vv
+$ memcode check foo.py bar.py --export-types
+$ memcode inspect foo.py:9:1 --show attrs --include-span --include-kind -vv
 NameExpr:9:1:9:1 -> {"foo.C": ["a", "x", "y"], "foo.B": ["a", "b"]}
-$ dmypy inspect foo.py:11:10 --show attrs
+$ memcode inspect foo.py:11:10 --show attrs
 No known type available for "StrExpr" (maybe unreachable or try --force-reload)
 == Return code: 1
-$ dmypy inspect foo.py:1:1 --show attrs
+$ memcode inspect foo.py:1:1 --show attrs
 Can't find any expressions at position 1:1
 == Return code: 1
-$ dmypy inspect --show attrs bar.py:10:1
+$ memcode inspect --show attrs bar.py:10:1
 {"A": ["z"], "B": ["z"]}
-$ dmypy inspect --show attrs bar.py:10:1 --union-attrs
+$ memcode inspect --show attrs bar.py:10:1 --union-attrs
 {"A": ["x", "z"], "B": ["y", "z"]}
 
 [file foo.py]
@@ -583,24 +583,24 @@ var: Union[A, B]
 var  # line 10
 
 [case testDaemonGetDefinition]
-$ dmypy start --log-file log.txt -- --follow-imports=error --no-error-summary
+$ memcode start --log-file log.txt -- --follow-imports=error --no-error-summary
 Daemon started
-$ dmypy check foo.py bar/baz.py bar/__init__.py --export-types
-$ dmypy inspect foo.py:5:1 --show definition
+$ memcode check foo.py bar/baz.py bar/__init__.py --export-types
+$ memcode inspect foo.py:5:1 --show definition
 foo.py:4:1:y
-$ dmypy inspect foo.py:2:3 --show definition --include-span --include-kind -vv
+$ memcode inspect foo.py:2:3 --show definition --include-span --include-kind -vv
 MemberExpr:2:1:2:7 -> bar/baz.py:3:5:Alias
-$ dmypy inspect foo.py:3:1 --show definition
+$ memcode inspect foo.py:3:1 --show definition
 Cannot find definition for "NameExpr" at 3:1:3:1
 == Return code: 1
-$ dmypy inspect foo.py:4:6 --show definition
+$ memcode inspect foo.py:4:6 --show definition
 No name or member expressions at 4:6
 == Return code: 1
-$ dmypy inspect foo.py:7:1:7:6 --show definition
+$ memcode inspect foo.py:7:1:7:6 --show definition
 bar/baz.py:4:5:attr
-$ dmypy inspect foo.py:10:10 --show definition --include-span
+$ memcode inspect foo.py:10:10 --show definition --include-span
 10:1:10:12 -> bar/baz.py:6:1:test
-$ dmypy inspect foo.py:14:6 --show definition --include-span --include-kind
+$ memcode inspect foo.py:14:6 --show definition --include-span --include-kind
 NameExpr:14:5:14:7 -> foo.py:13:9:arg
 MemberExpr:14:5:14:9 -> bar/baz.py:9:5:x, bar/baz.py:11:5:x
 
@@ -635,12 +635,12 @@ class B:
     x: int
 
 [case testDaemonInspectSelectCorrectFile]
-$ dmypy run test.py --export-types
+$ memcode run test.py --export-types
 Daemon started
 Success: no issues found in 1 source file
-$ dmypy inspect demo/test.py:1:1
+$ memcode inspect demo/test.py:1:1
 "int"
-$ dmypy inspect test.py:1:1
+$ memcode inspect test.py:1:1
 "str"
 [file test.py]
 b: str
@@ -650,12 +650,12 @@ a: int
 
 [case testUnusedTypeIgnorePreservedOnRerun]
 -- Regression test for https://github.com/python/mypy/issues/9655
-$ dmypy start -- --warn-unused-ignores --no-error-summary --hide-error-codes
+$ memcode start -- --warn-unused-ignores --no-error-summary --hide-error-codes
 Daemon started
-$ dmypy check -- bar.py
+$ memcode check -- bar.py
 bar.py:2: error: Unused "type: ignore" comment
 == Return code: 1
-$ dmypy check -- bar.py
+$ memcode check -- bar.py
 bar.py:2: error: Unused "type: ignore" comment
 == Return code: 1
 
@@ -667,12 +667,12 @@ a = 1  # type: ignore
 
 [case testTypeIgnoreWithoutCodePreservedOnRerun]
 -- Regression test for https://github.com/python/mypy/issues/9655
-$ dmypy start -- --enable-error-code ignore-without-code --no-error-summary
+$ memcode start -- --enable-error-code ignore-without-code --no-error-summary
 Daemon started
-$ dmypy check -- bar.py
+$ memcode check -- bar.py
 bar.py:2: error: "type: ignore" comment without error code  [ignore-without-code]
 == Return code: 1
-$ dmypy check -- bar.py
+$ memcode check -- bar.py
 bar.py:2: error: "type: ignore" comment without error code  [ignore-without-code]
 == Return code: 1
 
@@ -684,12 +684,12 @@ a = 1  # type: ignore
 
 [case testPossiblyUndefinedVarsPreservedAfterRerun]
 -- Regression test for https://github.com/python/mypy/issues/9655
-$ dmypy start -- --enable-error-code possibly-undefined --no-error-summary
+$ memcode start -- --enable-error-code possibly-undefined --no-error-summary
 Daemon started
-$ dmypy check -- bar.py
+$ memcode check -- bar.py
 bar.py:4: error: Name "a" may be undefined  [possibly-undefined]
 == Return code: 1
-$ dmypy check -- bar.py
+$ memcode check -- bar.py
 bar.py:4: error: Name "a" may be undefined  [possibly-undefined]
 == Return code: 1
 
@@ -702,12 +702,12 @@ if False:
 a
 
 [case testUnusedTypeIgnorePreservedOnRerunWithIgnoredMissingImports]
-$ dmypy start -- --no-error-summary --ignore-missing-imports --warn-unused-ignores
+$ memcode start -- --no-error-summary --ignore-missing-imports --warn-unused-ignores
 Daemon started
-$ dmypy check foo
+$ memcode check foo
 foo/main.py:3: error: Unused "type: ignore" comment  [unused-ignore]
 == Return code: 1
-$ dmypy check foo
+$ memcode check foo
 foo/main.py:3: error: Unused "type: ignore" comment  [unused-ignore]
 == Return code: 1
 
@@ -723,12 +723,12 @@ from foo.does_not_exist import *
 a = 1  # type: ignore
 
 [case testModuleDoesNotExistPreservedOnRerun]
-$ dmypy start -- --no-error-summary --ignore-missing-imports
+$ memcode start -- --no-error-summary --ignore-missing-imports
 Daemon started
-$ dmypy check foo
+$ memcode check foo
 foo/main.py:1: error: Module "foo" has no attribute "does_not_exist"  [attr-defined]
 == Return code: 1
-$ dmypy check foo
+$ memcode check foo
 foo/main.py:1: error: Module "foo" has no attribute "does_not_exist"  [attr-defined]
 == Return code: 1
 
@@ -742,13 +742,13 @@ from unused.submodule import *
 
 [case testReturnTypeIgnoreAfterUnknownImport]
 -- Return type ignores after unknown imports and unused modules are respected on the second pass.
-$ dmypy start -- --warn-unused-ignores --no-error-summary
+$ memcode start -- --warn-unused-ignores --no-error-summary
 Daemon started
-$ dmypy check -- foo.py
+$ memcode check -- foo.py
 foo.py:2: error: Cannot find implementation or library stub for module named "a_module_which_does_not_exist"  [import-not-found]
 foo.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 == Return code: 1
-$ dmypy check -- foo.py
+$ memcode check -- foo.py
 foo.py:2: error: Cannot find implementation or library stub for module named "a_module_which_does_not_exist"  [import-not-found]
 foo.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 == Return code: 1
@@ -762,13 +762,13 @@ def is_foo() -> str:
     return True  # type: ignore
 
 [case testAttrsTypeIgnoreAfterUnknownImport]
-$ dmypy start -- --warn-unused-ignores --no-error-summary
+$ memcode start -- --warn-unused-ignores --no-error-summary
 Daemon started
-$ dmypy check -- foo.py
+$ memcode check -- foo.py
 foo.py:3: error: Cannot find implementation or library stub for module named "a_module_which_does_not_exist"  [import-not-found]
 foo.py:3: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 == Return code: 1
-$ dmypy check -- foo.py
+$ memcode check -- foo.py
 foo.py:3: error: Cannot find implementation or library stub for module named "a_module_which_does_not_exist"  [import-not-found]
 foo.py:3: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 == Return code: 1
@@ -786,16 +786,16 @@ class A:
         self.__attrs_init__()  # type: ignore[attr-defined]
 
 [case testDaemonImportAncestors]
-$ dmypy run test.py
+$ memcode run test.py
 Daemon started
 test.py:2: error: Unsupported operand types for + ("int" and "str")  [operator]
 Found 1 error in 1 file (checked 1 source file)
 == Return code: 1
-$ dmypy run test.py
+$ memcode run test.py
 test.py:2: error: Unsupported operand types for + ("int" and "str")  [operator]
 Found 1 error in 1 file (checked 1 source file)
 == Return code: 1
-$ dmypy run test.py
+$ memcode run test.py
 test.py:2: error: Unsupported operand types for + ("int" and "str")  [operator]
 Found 1 error in 1 file (checked 1 source file)
 == Return code: 1

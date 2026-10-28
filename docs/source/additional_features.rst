@@ -296,7 +296,7 @@ Caching with mypy daemon
 ========================
 
 You can also use remote caching with the :ref:`mypy daemon <mypy_daemon>`.
-The remote cache will significantly speed up the first ``dmypy check``
+The remote cache will significantly speed up the first ``memcode check``
 run after starting or restarting the daemon.
 
 The mypy daemon requires extra fine-grained dependency data in
@@ -308,12 +308,12 @@ build::
 
 This flag adds extra information for the daemon to the cache. In
 order to use this extra information, you will also need to use the
-``--use-fine-grained-cache`` option with ``dmypy start`` or
-``dmypy restart``. Example::
+``--use-fine-grained-cache`` option with ``memcode start`` or
+``memcode restart``. Example::
 
-    $ dmypy start -- --use-fine-grained-cache <options...>
+    $ memcode start -- --use-fine-grained-cache <options...>
 
-Now your first ``dmypy check`` run should be much faster, as it can use
+Now your first ``memcode check`` run should be much faster, as it can use
 cache information to avoid processing the whole program.
 
 Refinements

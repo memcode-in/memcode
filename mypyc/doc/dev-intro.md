@@ -238,7 +238,7 @@ We also have tests that verify the generated IR
 however, since it's using an uncompiled mypy.
 
 Installing a released version of mypy using `pip` (which is compiled)
-and using `dmypy` (mypy daemon) is a much, much faster way to type
+and using `memcode` (mypy daemon) is a much, much faster way to type
 check mypyc during development.
 
 ## Value Representation

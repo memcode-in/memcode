@@ -19,8 +19,8 @@ from typing import Any, NoReturn
 from librt.base64 import b64decode
 
 from mypy.defaults import RECURSION_LIMIT
-from mypy.dmypy_os import alive, kill
-from mypy.dmypy_util import DEFAULT_STATUS_FILE, receive, send
+from mypy.memcode_os import alive, kill
+from mypy.memcode_util import DEFAULT_STATUS_FILE, receive, send
 from mypy.ipc import BadStatus, IPCClient, IPCException, read_status
 from mypy.util import check_python_version, get_terminal_width, should_force_color
 from mypy.version import __version__
@@ -35,7 +35,7 @@ class AugmentedHelpFormatter(argparse.RawDescriptionHelpFormatter):
 
 
 parser = argparse.ArgumentParser(
-    prog="dmypy", description="Client for mypy daemon mode", fromfile_prefix_chars="@"
+    prog="memcode", description="Client for mypy daemon mode", fromfile_prefix_chars="@"
 )
 parser.set_defaults(action=None)
 parser.add_argument(
@@ -259,7 +259,7 @@ del p
 
 def main(argv: list[str]) -> None:
     """The code is top-down."""
-    check_python_version("dmypy")
+    check_python_version("memcode")
 
     # set recursion limit consistent with mypy/main.py
     sys.setrecursionlimit(RECURSION_LIMIT)
@@ -308,7 +308,7 @@ def do_start(args: argparse.Namespace) -> None:
 
     Setting flags is a bit awkward; you have to use e.g.:
 
-      dmypy start -- --strict
+      memcode start -- --strict
 
     since we don't want to duplicate mypy's huge list of flags.
     """
@@ -345,7 +345,7 @@ def restart_server(args: argparse.Namespace, allow_sources: bool = False) -> Non
 def start_server(args: argparse.Namespace, allow_sources: bool = False) -> None:
     """Start the server from command arguments and wait for it."""
     # Lazy import so this import doesn't slow down other commands.
-    from mypy.dmypy_server import daemonize, process_start_options
+    from mypy.memcode_server import daemonize, process_start_options
 
     start_options = process_start_options(args.flags, allow_sources)
     if daemonize(start_options, args.status_file, timeout=args.timeout, log_file=args.log_file):
@@ -382,7 +382,7 @@ def do_run(args: argparse.Namespace) -> None:
 
     Setting flags is a bit awkward; you have to use e.g.:
 
-      dmypy run -- --strict a.py b.py ...
+      memcode run -- --strict a.py b.py ...
 
     since we don't want to duplicate mypy's huge list of flags.
     (The -- is only necessary if flags are specified.)
@@ -610,7 +610,7 @@ def do_hang(args: argparse.Namespace) -> None:
 def do_daemon(args: argparse.Namespace) -> None:
     """Serve requests in the foreground."""
     # Lazy import so this import doesn't slow down other commands.
-    from mypy.dmypy_server import Server, process_start_options
+    from mypy.memcode_server import Server, process_start_options
 
     if args.log_file:
         sys.stdout = sys.stderr = open(args.log_file, "a", buffering=1)
@@ -632,7 +632,7 @@ def do_daemon(args: argparse.Namespace) -> None:
 
 @action(help_parser)
 def do_help(args: argparse.Namespace) -> None:
-    """Print full help (same as dmypy --help)."""
+    """Print full help (same as memcode --help)."""
     parser.print_help()
 
 

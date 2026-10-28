@@ -1855,9 +1855,9 @@ Related PRs:
 - Fix constructor type for subclasses of Any (Ivan Levkivskyi, PR [19295](https://github.com/python/mypy/pull/19295))
 - Fix TypeGuard/TypeIs being forgotten in some cases (Brian Schubert, PR [19325](https://github.com/python/mypy/pull/19325))
 - Fix TypeIs negative narrowing for unions of generics (Brian Schubert, PR [18193](https://github.com/python/mypy/pull/18193))
-- dmypy suggest: Fix incorrect signature suggestion when a type matches a module name (Brian Schubert, PR [18937](https://github.com/python/mypy/pull/18937))
-- dmypy suggest: Fix interaction with `__new__` (Stanislav Terliakov, PR [18966](https://github.com/python/mypy/pull/18966))
-- dmypy suggest: Support Callable / callable Protocols in decorator unwrapping (Anthony Sottile, PR [19072](https://github.com/python/mypy/pull/19072))
+- memcode suggest: Fix incorrect signature suggestion when a type matches a module name (Brian Schubert, PR [18937](https://github.com/python/mypy/pull/18937))
+- memcode suggest: Fix interaction with `__new__` (Stanislav Terliakov, PR [18966](https://github.com/python/mypy/pull/18966))
+- memcode suggest: Support Callable / callable Protocols in decorator unwrapping (Anthony Sottile, PR [19072](https://github.com/python/mypy/pull/19072))
 - Fix missing error when redeclaring a type variable in a nested generic class (Brian Schubert, PR [18883](https://github.com/python/mypy/pull/18883))
 - Fix for overloaded type object erasure (Shantanu, PR [19338](https://github.com/python/mypy/pull/19338))
 - Fix TypeGuard with call on temporary object (Saul Shanabrook, PR [19577](https://github.com/python/mypy/pull/19577))
@@ -2045,8 +2045,8 @@ Related PRs:
 
 * Combine the revealed types of multiple iteration steps in a more robust manner (Christoph Tyralla, PR [19324](https://github.com/python/mypy/pull/19324))
 * Improve the handling of "iteration dependent" errors and notes in finally clauses (Christoph Tyralla, PR [19270](https://github.com/python/mypy/pull/19270))
-* Lessen dmypy suggest path limitations for Windows machines (CoolCat467, PR [19337](https://github.com/python/mypy/pull/19337))
-* Fix type ignore comments erroneously marked as unused by dmypy (Charlie Denton, PR [15043](https://github.com/python/mypy/pull/15043))
+* Lessen memcode suggest path limitations for Windows machines (CoolCat467, PR [19337](https://github.com/python/mypy/pull/19337))
+* Fix type ignore comments erroneously marked as unused by memcode (Charlie Denton, PR [15043](https://github.com/python/mypy/pull/15043))
 * Fix misspelled `exhaustive-match` error code (johnthagen, PR [19276](https://github.com/python/mypy/pull/19276))
 * Fix missing error context for unpacking assignment involving star expression (Brian Schubert, PR [19258](https://github.com/python/mypy/pull/19258))
 * Fix and simplify error de-duplication (Ivan Levkivskyi, PR [19247](https://github.com/python/mypy/pull/19247))
@@ -2072,12 +2072,12 @@ Related PRs:
 * Fix example to use correct method of Stack (Łukasz Kwieciński, PR [19123](https://github.com/python/mypy/pull/19123))
 * Forbid `.pop` of `Readonly` `NotRequired` TypedDict items (Stanislav Terliakov, PR [19133](https://github.com/python/mypy/pull/19133))
 * Emit a friendlier warning on invalid exclude regex, instead of a stacktrace (wyattscarpenter, PR [19102](https://github.com/python/mypy/pull/19102))
-* Enable ANSI color codes for dmypy client in Windows (wyattscarpenter, PR [19088](https://github.com/python/mypy/pull/19088))
+* Enable ANSI color codes for memcode client in Windows (wyattscarpenter, PR [19088](https://github.com/python/mypy/pull/19088))
 * Extend special case for context-based type variable inference to unions in return position (Stanislav Terliakov, PR [18976](https://github.com/python/mypy/pull/18976))
 
 ### Mypy 1.17.1
 * Retain `None` as constraints bottom if no bottoms were provided (Stanislav Terliakov, PR [19485](https://github.com/python/mypy/pull/19485))
-* Fix "ignored exception in `hasattr`" in dmypy (Stanislav Terliakov, PR [19428](https://github.com/python/mypy/pull/19428))
+* Fix "ignored exception in `hasattr`" in memcode (Stanislav Terliakov, PR [19428](https://github.com/python/mypy/pull/19428))
 * Prevent a crash when InitVar is redefined with a method in a subclass (Stanislav Terliakov, PR [19453](https://github.com/python/mypy/pull/19453))
 
 ### Acknowledgements
@@ -2384,7 +2384,7 @@ This feature was contributed by Valentin Stanciu (PR [18802](https://github.com/
 
 ### Fixes to Crashes
 
- * Traverse module ancestors when traversing reachable graph nodes during dmypy update (Stanislav Terliakov, PR [18906](https://github.com/python/mypy/pull/18906))
+ * Traverse module ancestors when traversing reachable graph nodes during memcode update (Stanislav Terliakov, PR [18906](https://github.com/python/mypy/pull/18906))
  * Fix crash on multiple unpacks in a bare type application (Stanislav Terliakov, PR [18857](https://github.com/python/mypy/pull/18857))
  * Prevent crash when enum/TypedDict call is stored as a class attribute (Stanislav Terliakov, PR [18861](https://github.com/python/mypy/pull/18861))
  * Fix crash on multiple unpacks in a bare type application (Stanislav Terliakov, PR [18857](https://github.com/python/mypy/pull/18857))
@@ -2442,7 +2442,7 @@ These are specific to mypy. Mypyc-related performance improvements are discussed
  * Treat varargs as positional-only (A5rocks, PR [19022](https://github.com/python/mypy/pull/19022))
  * Enable colored output for argparse help in Python 3.14 (Marc Mueller, PR [19021](https://github.com/python/mypy/pull/19021))
  * Fix argparse for Python 3.14 (Marc Mueller, PR [19020](https://github.com/python/mypy/pull/19020))
- * `dmypy suggest` can now suggest through contextmanager-based decorators (Anthony Sottile, PR [18948](https://github.com/python/mypy/pull/18948))
+ * `memcode suggest` can now suggest through contextmanager-based decorators (Anthony Sottile, PR [18948](https://github.com/python/mypy/pull/18948))
  * Fix `__r<magic_methods>__` being used under the same `__<magic_method>__` hook (Arnav Jain, PR [18995](https://github.com/python/mypy/pull/18995))
  * Prioritize `.pyi` from `-stubs` packages over bundled `.pyi` (Joren Hammudoglu, PR [19001](https://github.com/python/mypy/pull/19001))
  * Fix missing subtype check case for `type[T]` (Stanislav Terliakov, PR [18975](https://github.com/python/mypy/pull/18975))
@@ -2474,7 +2474,7 @@ These are specific to mypy. Mypyc-related performance improvements are discussed
  * Improve handling of Any/object in variadic generics (Ivan Levkivskyi, PR [18643](https://github.com/python/mypy/pull/18643))
  * Fix handling of named tuples in class match pattern (Ivan Levkivskyi, PR [18663](https://github.com/python/mypy/pull/18663))
  * Fix regression for user config files (Shantanu, PR [18656](https://github.com/python/mypy/pull/18656))
- * Fix dmypy socket issue on GNU/Hurd (Mattias Ellert, PR [18630](https://github.com/python/mypy/pull/18630))
+ * Fix memcode socket issue on GNU/Hurd (Mattias Ellert, PR [18630](https://github.com/python/mypy/pull/18630))
  * Don't assume that for loop body index variable is always set (Jukka Lehtosalo, PR [18631](https://github.com/python/mypy/pull/18631))
  * Fix overlap check for variadic generics (Ivan Levkivskyi, PR [18638](https://github.com/python/mypy/pull/18638))
  * Improve support for `functools.partial` of overloaded callable protocol (Shantanu, PR [18639](https://github.com/python/mypy/pull/18639))
@@ -2687,7 +2687,7 @@ Contributed by Marc Mueller (PR [17492](https://github.com/python/mypy/pull/1749
  * Fix `--install-types` masking failure details (wyattscarpenter, PR [17485](https://github.com/python/mypy/pull/17485))
  * Reject promotions when checking against protocols (Christoph Tyralla, PR [18360](https://github.com/python/mypy/pull/18360))
  * Don't erase type object arguments in diagnostics (Shantanu, PR [18352](https://github.com/python/mypy/pull/18352))
- * Clarify status in `dmypy status` output (Kcornw, PR [18331](https://github.com/python/mypy/pull/18331))
+ * Clarify status in `memcode status` output (Kcornw, PR [18331](https://github.com/python/mypy/pull/18331))
  * Disallow no-argument generic aliases when using PEP 613 explicit aliases (Brian Schubert, PR [18173](https://github.com/python/mypy/pull/18173))
  * Suppress errors for unreachable branches in conditional expressions (Brian Schubert, PR [18295](https://github.com/python/mypy/pull/18295))
  * Do not allow `ClassVar` and `Final` in `TypedDict` and `NamedTuple` (sobolevn, PR [18281](https://github.com/python/mypy/pull/18281))
@@ -2933,7 +2933,7 @@ This was contributed by Marc Mueller (PR [18014](https://github.com/python/mypy/
  * Fix 'or' pattern structural matching exhaustiveness (yihong, PR [18119](https://github.com/python/mypy/pull/18119))
  * Fix type inference of positional parameter in class pattern involving builtin subtype (Brian Schubert, PR [18141](https://github.com/python/mypy/pull/18141))
  * Fix `[override]` error with no line number when argument node has no line number (Brian Schubert, PR [18122](https://github.com/python/mypy/pull/18122))
- * Fix some dmypy crashes (Ivan Levkivskyi, PR [18098](https://github.com/python/mypy/pull/18098))
+ * Fix some memcode crashes (Ivan Levkivskyi, PR [18098](https://github.com/python/mypy/pull/18098))
  * Fix subtyping between instance type and overloaded (Shantanu, PR [18102](https://github.com/python/mypy/pull/18102))
  * Clean up new_semantic_analyzer config (Shantanu, PR [18071](https://github.com/python/mypy/pull/18071))
  * Issue warning for enum with no members in stub (Shantanu, PR [18068](https://github.com/python/mypy/pull/18068))
@@ -4142,14 +4142,14 @@ This was contributed by Shantanu (PR [16280](https://github.com/python/mypy/pull
 ### Mypy Daemon Improvements
 
  * Fix daemon crash caused by deleted submodule (Jukka Lehtosalo, PR [16370](https://github.com/python/mypy/pull/16370))
- * Fix file reloading in dmypy with --export-types (Ivan Levkivskyi, PR [16359](https://github.com/python/mypy/pull/16359))
- * Fix dmypy inspect on Windows (Ivan Levkivskyi, PR [16355](https://github.com/python/mypy/pull/16355))
- * Fix dmypy inspect for namespace packages (Ivan Levkivskyi, PR [16357](https://github.com/python/mypy/pull/16357))
+ * Fix file reloading in memcode with --export-types (Ivan Levkivskyi, PR [16359](https://github.com/python/mypy/pull/16359))
+ * Fix memcode inspect on Windows (Ivan Levkivskyi, PR [16355](https://github.com/python/mypy/pull/16355))
+ * Fix memcode inspect for namespace packages (Ivan Levkivskyi, PR [16357](https://github.com/python/mypy/pull/16357))
  * Fix return type change to optional in generic function (Jukka Lehtosalo, PR [16342](https://github.com/python/mypy/pull/16342))
  * Fix daemon false positives related to module-level `__getattr__` (Jukka Lehtosalo, PR [16292](https://github.com/python/mypy/pull/16292))
  * Fix daemon crash related to ABCs (Jukka Lehtosalo, PR [16275](https://github.com/python/mypy/pull/16275))
- * Stream dmypy output instead of dumping everything at the end (Valentin Stanciu, PR [16252](https://github.com/python/mypy/pull/16252))
- * Make sure all dmypy errors are shown (Valentin Stanciu, PR [16250](https://github.com/python/mypy/pull/16250))
+ * Stream memcode output instead of dumping everything at the end (Valentin Stanciu, PR [16252](https://github.com/python/mypy/pull/16252))
+ * Make sure all memcode errors are shown (Valentin Stanciu, PR [16250](https://github.com/python/mypy/pull/16250))
 
 ### Mypyc Improvements
 
@@ -4398,7 +4398,7 @@ The experimental new type inference algorithm (polymorphic inference) introduced
 *   Add basic support for decorated overloads (Ivan Levkivskyi, PR [15898](https://github.com/python/mypy/pull/15898))
 *   Fix TypeVar regression with self types (Ivan Levkivskyi, PR [15945](https://github.com/python/mypy/pull/15945))
 *   Add \_\_match\_args\_\_ to dataclasses with no fields (Ali Hamdan, PR [15749](https://github.com/python/mypy/pull/15749))
-*   Include stdout and stderr in dmypy verbose output (Valentin Stanciu, PR [15881](https://github.com/python/mypy/pull/15881))
+*   Include stdout and stderr in memcode verbose output (Valentin Stanciu, PR [15881](https://github.com/python/mypy/pull/15881))
 *   Improve match narrowing and reachability analysis (Shantanu, PR [15882](https://github.com/python/mypy/pull/15882))
 *   Support \_\_bool\_\_ with Literal in \--warn-unreachable (Jannic Warken, PR [15645](https://github.com/python/mypy/pull/15645))
 *   Fix inheriting from generic @frozen attrs class (Ilya Priven, PR [15700](https://github.com/python/mypy/pull/15700))
@@ -4597,7 +4597,7 @@ Mypy and mypyc now support running on recent Python 3.12 development versions. N
 *   Fix \--find-occurrences flag (Shantanu, PR [15528](https://github.com/python/mypy/pull/15528))
 *   Fix error location for class patterns (Nikita Sobolev, PR [15506](https://github.com/python/mypy/pull/15506))
 *   Fix re-added file with errors in mypy daemon (Ivan Levkivskyi, PR [15440](https://github.com/python/mypy/pull/15440))
-*   Fix dmypy run on Windows (Ivan Levkivskyi, PR [15429](https://github.com/python/mypy/pull/15429))
+*   Fix memcode run on Windows (Ivan Levkivskyi, PR [15429](https://github.com/python/mypy/pull/15429))
 *   Fix abstract and non-abstract variant error for property deleter (Shantanu, PR [15395](https://github.com/python/mypy/pull/15395))
 *   Remove special casing for "cannot" in error messages (Ilya Priven, PR [15428](https://github.com/python/mypy/pull/15428))
 *   Add runtime `__slots__` attribute to attrs classes (Nikita Sobolev, PR [15651](https://github.com/python/mypy/pull/15651))
@@ -4782,7 +4782,7 @@ This feature was contributed by Shantanu (PR [11521](https://github.com/python/m
 
 ### Documentation Updates
 
-*   Add \--local-partial-types note to dmypy docs (Alan Du, PR [15259](https://github.com/python/mypy/pull/15259))
+*   Add \--local-partial-types note to memcode docs (Alan Du, PR [15259](https://github.com/python/mypy/pull/15259))
 *   Update getting started docs for mypyc for Windows (Valentin Stanciu, PR [15233](https://github.com/python/mypy/pull/15233))
 *   Clarify usage of callables regarding type object in docs (Viicos, PR [15079](https://github.com/python/mypy/pull/15079))
 *   Clarify difference between disallow\_untyped\_defs and disallow\_incomplete\_defs (Ilya Priven, PR [15247](https://github.com/python/mypy/pull/15247))
@@ -5466,7 +5466,7 @@ Stubgen is a tool for automatically generating draft stubs for libraries.
 *   Correctly support self types in callable ClassVar (Ivan Levkivskyi, PR [14115](https://github.com/python/mypy/pull/14115))
 *   Fix type variable clash in nested positions and in attributes (Ivan Levkivskyi, PR [14095](https://github.com/python/mypy/pull/14095))
 *   Allow class variable as implementation for read only attribute (Ivan Levkivskyi, PR [14081](https://github.com/python/mypy/pull/14081))
-*   Prevent warnings from causing dmypy to fail (Andrzej Bartosiński, PR [14102](https://github.com/python/mypy/pull/14102))
+*   Prevent warnings from causing memcode to fail (Andrzej Bartosiński, PR [14102](https://github.com/python/mypy/pull/14102))
 *   Correctly process nested definitions in mypy daemon (Ivan Levkivskyi, PR [14104](https://github.com/python/mypy/pull/14104))
 *   Don't consider a branch unreachable if there is a possible promotion (Ivan Levkivskyi, PR [14077](https://github.com/python/mypy/pull/14077))
 *   Fix incompatible overrides of overloaded methods in concrete subclasses (Shantanu, PR [14017](https://github.com/python/mypy/pull/14017))

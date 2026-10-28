@@ -1593,7 +1593,7 @@ def process_options(
     options.process_strict_bytes()
 
     # An explicitly specified cache_fine_grained implies local_partial_types
-    # (because otherwise the cache is not compatible with dmypy)
+    # (because otherwise the cache is not compatible with memcode)
     if options.cache_fine_grained:
         options.local_partial_types = True
 

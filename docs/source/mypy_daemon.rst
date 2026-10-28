@@ -1,6 +1,6 @@
 .. _mypy_daemon:
 
-.. program:: dmypy
+.. program:: memcode
 
 Mypy daemon (mypy server)
 =========================
@@ -34,15 +34,15 @@ you'll find errors sooner.
 Basic usage
 ***********
 
-The client utility ``dmypy`` is used to control the mypy daemon.
-Use ``dmypy run -- <flags> <files>`` to type check a set of files
+The client utility ``memcode`` is used to control the mypy daemon.
+Use ``memcode run -- <flags> <files>`` to type check a set of files
 (or directories). This will launch the daemon if it is not running.
 You can use almost arbitrary mypy flags after ``--``.  The daemon
 will always run on the current host. Example::
 
-    dmypy run -- prog.py pkg/*.py
+    memcode run -- prog.py pkg/*.py
 
-``dmypy run`` will automatically restart the daemon if the
+``memcode run`` will automatically restart the daemon if the
 configuration or mypy version changes.
 
 The initial run will process all the code and may take a while to
@@ -53,7 +53,7 @@ you have a large codebase.)
 
 .. note::
 
-   Mypy 0.780 added support for following imports in dmypy (enabled by
+   Mypy 0.780 added support for following imports in memcode (enabled by
    default). This functionality is still experimental. You can use
    ``--follow-imports=skip`` or ``--follow-imports=error`` to fall
    back to the stable functionality.  See :ref:`follow-imports` for
@@ -68,37 +68,37 @@ you have a large codebase.)
 Daemon client commands
 **********************
 
-While ``dmypy run`` is sufficient for most uses, some workflows
+While ``memcode run`` is sufficient for most uses, some workflows
 (ones using :ref:`remote caching <remote-cache>`, perhaps),
 require more precise control over the lifetime of the daemon process:
 
-* ``dmypy stop`` stops the daemon.
+* ``memcode stop`` stops the daemon.
 
-* ``dmypy start -- <flags>`` starts the daemon but does not check any files.
+* ``memcode start -- <flags>`` starts the daemon but does not check any files.
   You can use almost arbitrary mypy flags after ``--``.
 
-* ``dmypy restart -- <flags>`` restarts the daemon. The flags are the same
-  as with ``dmypy start``. This is equivalent to a stop command followed
+* ``memcode restart -- <flags>`` restarts the daemon. The flags are the same
+  as with ``memcode start``. This is equivalent to a stop command followed
   by a start.
 
-* Use ``dmypy run --timeout SECONDS -- <flags>`` (or
+* Use ``memcode run --timeout SECONDS -- <flags>`` (or
   ``start`` or ``restart``) to automatically
   shut down the daemon after inactivity. By default, the daemon runs
   until it's explicitly stopped.
 
-* ``dmypy check <files>`` checks a set of files using an already
+* ``memcode check <files>`` checks a set of files using an already
   running daemon.
 
-* ``dmypy recheck`` checks the same set of files as the most recent
+* ``memcode recheck`` checks the same set of files as the most recent
   ``check`` or ``recheck`` command. (You can also use the :option:`--update`
   and :option:`--remove` options to alter the set of files, and to define
   which files should be processed.)
 
-* ``dmypy status`` checks whether a daemon is running. It prints a
+* ``memcode status`` checks whether a daemon is running. It prints a
   diagnostic and exits with ``0`` if there is a running daemon.
 
-Use ``dmypy --help`` for help on additional commands and command-line
-options not discussed here, and ``dmypy <command> --help`` for help on
+Use ``memcode --help`` for help on additional commands and command-line
+options not discussed here, and ``memcode <command> --help`` for help on
 command-specific options.
 
 Additional daemon flags
@@ -108,7 +108,7 @@ Additional daemon flags
 
    Use ``FILE`` as the status file for storing daemon runtime state. This is
    normally a JSON file that contains information about daemon process and
-   connection. The default path is ``.dmypy.json`` in the current working
+   connection. The default path is ``.memcode.json`` in the current working
    directory.
 
 .. option:: --log-file FILE
@@ -161,14 +161,14 @@ Additional daemon flags
 .. option:: --export-types
 
    Store all expression types in memory for future use. This is useful to speed
-   up future calls to ``dmypy inspect`` (but uses more memory). Only valid for
+   up future calls to ``memcode inspect`` (but uses more memory). Only valid for
    ``check``, ``recheck``, and ``run`` command.
 
 Static inference of annotations
 *******************************
 
 The mypy daemon supports (as an experimental feature) statically inferring
-draft function and method type annotations. Use ``dmypy suggest FUNCTION`` to
+draft function and method type annotations. Use ``memcode suggest FUNCTION`` to
 generate a draft signature in the format
 ``(param_type_1, param_type_2, ...) -> ret_type`` (types are included for all
 arguments, including keyword-only arguments, ``*args`` and ``**kwargs``).
@@ -187,9 +187,9 @@ In this example, the function ``format_id()`` has no annotation:
 
    root = format_id(0)
 
-``dmypy suggest`` uses call sites, return statements, and other heuristics (such as
+``memcode suggest`` uses call sites, return statements, and other heuristics (such as
 looking for signatures in base classes) to infer that ``format_id()`` accepts
-an ``int`` argument and returns a ``str``. Use ``dmypy suggest module.format_id`` to
+an ``int`` argument and returns a ``str``. Use ``memcode suggest module.format_id`` to
 print the suggested signature for the function.
 
 More generally, the target function may be specified in two ways:
@@ -203,7 +203,7 @@ More generally, the target function may be specified in two ways:
 This command can also be used to find a more precise alternative for an existing,
 imprecise annotation with some ``Any`` types.
 
-The following flags customize various aspects of the ``dmypy suggest``
+The following flags customize various aspects of the ``memcode suggest``
 command.
 
 .. option:: --json
@@ -255,7 +255,7 @@ Statically inspect expressions
 
 The daemon allows one to get the declared or inferred type of an expression (or other
 information about an expression, such as known attributes or definition location)
-using the ``dmypy inspect LOCATION`` command. The location of the expression should be
+using the ``memcode inspect LOCATION`` command. The location of the expression should be
 specified in the format ``path/to/file.py:line:column[:end_line:end_column]``.
 Both line and column are 1-based. Both start and end position are inclusive.
 These rules match how mypy prints the error location in error messages.
@@ -273,12 +273,12 @@ Consider this Python code snippet:
        x
        longer_name
 
-Here to find the type of ``x`` one needs to call ``dmypy inspect src.py:2:5:2:5``
-or ``dmypy inspect src.py:2:5``. While for ``longer_name`` one needs to call
-``dmypy inspect src.py:3:5:3:15`` or, for example, ``dmypy inspect src.py:3:10``.
+Here to find the type of ``x`` one needs to call ``memcode inspect src.py:2:5:2:5``
+or ``memcode inspect src.py:2:5``. While for ``longer_name`` one needs to call
+``memcode inspect src.py:3:5:3:15`` or, for example, ``memcode inspect src.py:3:10``.
 Please note that this command is only valid after daemon had a successful type
 check (without parse errors), so that types are populated, e.g. using
-``dmypy check``. In case where multiple expressions match the provided location,
+``memcode check``. In case where multiple expressions match the provided location,
 their types are returned separated by a newline.
 
 Important note: it is recommended to check files with :option:`--export-types`
@@ -310,7 +310,7 @@ since otherwise most inspections will not work without :option:`--force-reload`.
    If the location is given as ``line:column``, this will cause daemon to
    return only at most ``NUM`` inspections of innermost expressions.
    Value of 0 means no limit (this is the default). For example, if one calls
-   ``dmypy inspect src.py:4:10 --limit=1`` with this code
+   ``memcode inspect src.py:4:10 --limit=1`` with this code
 
    .. code-block:: python
 
@@ -360,7 +360,7 @@ since otherwise most inspections will not work without :option:`--force-reload`.
       var: Union[A, B]
       var
 
-   The command ``dmypy inspect --show attrs src.py:10:1`` will return
+   The command ``memcode inspect --show attrs src.py:10:1`` will return
    ``{"A": ["z"], "B": ["z"]}``, while with ``--union-attrs`` it will return
    ``{"A": ["x", "z"], "B": ["y", "z"]}``.
 

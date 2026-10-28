@@ -64,7 +64,7 @@ dependencies = [
 dynamic = ["version"]
 
 [project.optional-dependencies]
-dmypy = ["psutil>=4.0"]
+memcode = ["psutil>=4.0"]
 mypyc = ["setuptools>=50"]
 reports = ["lxml"]
 install-types = ["pip"]
@@ -82,7 +82,7 @@ Issues = "https://github.com/python/mypy/issues"
 mypy = "mypy.__main__:console_entry"
 stubgen = "mypy.stubgen:main"
 stubtest = "mypy.stubtest:main"
-dmypy = "mypy.dmypy.client:console_entry"
+memcode = "mypy.memcode.client:console_entry"
 mypyc = "mypyc.__main__:main"
 
 [tool.setuptools.packages.find]

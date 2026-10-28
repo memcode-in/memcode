@@ -1,4 +1,4 @@
-"""Shared code between dmypy.py and dmypy_server.py.
+"""Shared code between memcode.py and memcode_server.py.
 
 This should be pretty lightweight and not depend on other mypy code (other than ipc).
 """
@@ -13,7 +13,7 @@ from typing import Any, Final, TextIO
 
 from mypy.ipc import IPCBase
 
-DEFAULT_STATUS_FILE: Final = ".dmypy.json"
+DEFAULT_STATUS_FILE: Final = ".memcode.json"
 
 
 def receive(connection: IPCBase) -> Any:

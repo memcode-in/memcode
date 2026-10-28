@@ -15,8 +15,8 @@ venv/
 .incremental_checker_cache.json
 .cache
 test-data/packages/.pip_lock
-dmypy.json
-.dmypy.json
+memcode.json
+.memcode.json
 /.mypyc_test_output
 
 # Packages

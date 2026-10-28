@@ -2998,7 +2998,7 @@ L0:
     keep_alive r2, self, key, val
     return 1
 
-[case testInvalidMypycAttr]
+[case testInvalimemcodecAttr]
 from mypy_extensions import mypyc_attr
 
 @mypyc_attr("allow_interpreted_subclasses", "invalid_arg")  # E: "invalid_arg" is not a supported "mypyc_attr" \

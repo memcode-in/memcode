@@ -835,9 +835,9 @@ def get_cflags(
             "-Wno-stringop-overflow",
         ]
         if log_trace:
-            cflags.append("-DMYPYC_LOG_TRACE")
+            cflags.append("-memcodeC_LOG_TRACE")
         if experimental_features:
-            cflags.append("-DMYPYC_EXPERIMENTAL")
+            cflags.append("-memcodeC_EXPERIMENTAL")
         if opt_level == "0":
             cflags.append("-UNDEBUG")
     elif compiler_type == "msvc":
@@ -866,9 +866,9 @@ def get_cflags(
             # use wins that multi-file mode is intended for.
             cflags += ["/GL-", "/wd9025"]  # warning about overriding /GL
         if log_trace:
-            cflags.append("/DMYPYC_LOG_TRACE")
+            cflags.append("/memcodeC_LOG_TRACE")
         if experimental_features:
-            cflags.append("/DMYPYC_EXPERIMENTAL")
+            cflags.append("/memcodeC_EXPERIMENTAL")
     return cflags
 
 

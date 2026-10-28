@@ -119,7 +119,7 @@ If you are working with large code bases, you can run mypy in
 [daemon mode], that will give much faster (often sub-second) incremental updates:
 
 ```bash
-dmypy run -- PROGRAM
+memcode run -- PROGRAM
 ```
 
 You can also try mypy in an [online playground](https://mypy-play.net/) (developed by

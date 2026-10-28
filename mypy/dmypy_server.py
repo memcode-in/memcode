@@ -24,7 +24,7 @@ from librt.base64 import b64encode
 import mypy.build
 import mypy.errors
 import mypy.main
-from mypy.dmypy_util import WriteToConn, receive, send
+from mypy.memcode_util import WriteToConn, receive, send
 from mypy.find_sources import InvalidSourceList, create_source_list
 from mypy.fscache import FileSystemCache
 from mypy.fswatcher import FileData, FileSystemWatcher
@@ -46,7 +46,7 @@ if sys.platform == "win32":
     def daemonize(
         options: Options, status_file: str, timeout: int | None = None, log_file: str | None = None
     ) -> int:
-        """Create the daemon process via "dmypy daemon" and pass options via command line
+        """Create the daemon process via "memcode daemon" and pass options via command line
 
         When creating the daemon grandchild, we create it in a new console, which is
         started hidden. We cannot use DETACHED_PROCESS since it will cause console windows
@@ -56,7 +56,7 @@ if sys.platform == "win32":
 
         It also pickles the options to be unpickled by mypy.
         """
-        command = [sys.executable, "-m", "mypy.dmypy", "--status-file", status_file, "daemon"]
+        command = [sys.executable, "-m", "mypy.memcode", "--status-file", status_file, "daemon"]
         pickled_options = pickle.dumps(options.snapshot())
         command.append(f'--options-data="{b64encode(pickled_options).decode()}"')
         if timeout:
@@ -132,7 +132,7 @@ else:
 
 # Server code.
 
-CONNECTION_NAME: Final = "dmypy"
+CONNECTION_NAME: Final = "memcode"
 
 
 def process_start_options(flags: list[str], allow_sources: bool) -> Options:
@@ -140,19 +140,19 @@ def process_start_options(flags: list[str], allow_sources: bool) -> Options:
         ["-i"] + flags, require_targets=False, server_options=True
     )
     if options.report_dirs:
-        print("dmypy: Ignoring report generation settings. Start/restart cannot generate reports.")
+        print("memcode: Ignoring report generation settings. Start/restart cannot generate reports.")
     if options.junit_xml:
         print(
-            "dmypy: Ignoring report generation settings. "
+            "memcode: Ignoring report generation settings. "
             "Start/restart does not support --junit-xml. Pass it to check/recheck instead"
         )
         options.junit_xml = None
     if not options.incremental:
-        sys.exit("dmypy: start/restart should not disable incremental mode")
+        sys.exit("memcode: start/restart should not disable incremental mode")
     if options.follow_imports not in ("skip", "error", "normal"):
-        sys.exit("dmypy: follow-imports=silent not supported")
+        sys.exit("memcode: follow-imports=silent not supported")
     if not options.local_partial_types:
-        sys.exit("dmypy: disabling local-partial-types not supported")
+        sys.exit("memcode: disabling local-partial-types not supported")
     return options
 
 
@@ -567,7 +567,7 @@ class Server:
             remove: paths of files that have been removed
             update: paths of files that have been changed or created
             explicit_export_types: --export-type was passed in a check command
-              (as opposite to being set in dmypy start)
+              (as opposite to being set in memcode start)
         """
         assert self.fine_grained_manager is not None
         manager = self.fine_grained_manager.manager
@@ -1024,8 +1024,8 @@ def get_meminfo() -> dict[str, Any]:
         import psutil
     except ImportError:
         res["memory_psutil_missing"] = (
-            "psutil not found, run pip install mypy[dmypy] "
-            "to install the needed components for dmypy"
+            "psutil not found, run pip install mypy[memcode] "
+            "to install the needed components for memcode"
         )
     else:
         process = psutil.Process()

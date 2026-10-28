@@ -17,7 +17,7 @@
 --   <optional output from first incremental pass>
 --
 --
--- Modules that are expected to be detected as changed by dmypy_server
+-- Modules that are expected to be detected as changed by memcode_server
 -- can be checked with [stale ...]
 -- Generally this should mean added, deleted, or changed files, though there
 -- are important edge cases related to the cache: deleted files won't be detected

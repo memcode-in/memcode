@@ -1,4 +1,4 @@
-"""End-to-end test cases for the daemon (dmypy).
+"""End-to-end test cases for the daemon (memcode).
 
 These are special because they run multiple shell commands.
 
@@ -13,7 +13,7 @@ import sys
 import tempfile
 import unittest
 
-from mypy.dmypy_server import filter_out_missing_top_level_packages
+from mypy.memcode_server import filter_out_missing_top_level_packages
 from mypy.fscache import FileSystemCache
 from mypy.modulefinder import SearchPaths
 from mypy.test.config import PREFIX, test_temp_dir
@@ -32,7 +32,7 @@ class DaemonSuite(DataSuite):
             test_daemon(testcase)
         finally:
             # Kill the daemon if it's still running.
-            run_cmd("dmypy kill")
+            run_cmd("memcode kill")
 
 
 def test_daemon(testcase: DataDrivenTestCase) -> None:
@@ -79,7 +79,7 @@ def parse_script(input: list[str]) -> list[list[str]]:
 def run_cmd(input: str) -> tuple[int, str]:
     if input[1:].startswith("mypy run --") and "--show-error-codes" not in input:
         input += " --hide-error-codes"
-    if input.startswith("dmypy "):
+    if input.startswith("memcode "):
         input = sys.executable + " -m mypy." + input
     if input.startswith("mypy "):
         input = sys.executable + " -m" + input

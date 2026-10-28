@@ -490,7 +490,7 @@ def get_unique_redefinition_name(name: str, existing: Container[str]) -> str:
 
 
 def check_python_version(program: str) -> None:
-    """Report issues with the Python used to run mypy, dmypy, or stubgen"""
+    """Report issues with the Python used to run mypy, memcode, or stubgen"""
     # Check for known bad Python versions.
     if sys.version_info[:2] < (3, 10):  # noqa: UP036, RUF100
         sys.exit(

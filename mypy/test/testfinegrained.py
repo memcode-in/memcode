@@ -24,8 +24,8 @@ import pytest
 
 from mypy import build
 from mypy.config_parser import parse_config_file
-from mypy.dmypy_server import Server
-from mypy.dmypy_util import DEFAULT_STATUS_FILE
+from mypy.memcode_server import Server
+from mypy.memcode_util import DEFAULT_STATUS_FILE
 from mypy.errors import CompileError
 from mypy.find_sources import create_source_list
 from mypy.modulefinder import BuildSource
@@ -271,7 +271,7 @@ class FineGrainedSuite(DataSuite):
         """Return target BuildSources for a test case.
 
         Normally, the unit tests will check all files included in the test
-        case. This differs from how testcheck works by default, as dmypy
+        case. This differs from how testcheck works by default, as memcode
         doesn't currently support following imports.
 
         You can override this behavior and instruct the tests to check

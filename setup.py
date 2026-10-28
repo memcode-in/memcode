@@ -80,7 +80,7 @@ if USE_MYPYC:
             # Need to be runnable as scripts
             "__main__.py",
             "pyinfo.py",
-            os.path.join("dmypy", "__main__.py"),
+            os.path.join("memcode", "__main__.py"),
             os.path.join("build_worker", "__main__.py"),
             "exportjson.py",
             # Uses __getattr__/__setattr__

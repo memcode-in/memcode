@@ -9,7 +9,7 @@ import pytest
 
 from mypy.ipc import IPCClient, IPCServer
 
-CONNECTION_NAME = "dmypy-test-ipc"
+CONNECTION_NAME = "memcode-test-ipc"
 
 
 def server(msg: str, q: Queue[str]) -> None:

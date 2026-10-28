@@ -176,7 +176,7 @@ else:
 2: from typing import TYPE_CHECKING
 4: import for_mypy [mypy_only]
 
-[case testNestedMypyOnly]
+[case testNestememcodeOnly]
 # Nested blocks inside TYPE_CHECKING are also mypy_only
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
@@ -222,7 +222,7 @@ else:
 2: from typing import TYPE_CHECKING
 6: import mypy_only [mypy_only]
 
-[case testMixedMypyOnlyAndUnreachable]
+[case testMixememcodeOnlyAndUnreachable]
 # Combination of mypy_only and unreachable
 from typing import TYPE_CHECKING
 if PY2:
@@ -382,7 +382,7 @@ import reachable
 [out]
 4: import reachable
 
-[case testBoolAndMypyFalseWithAlwaysTrue]
+[case testBoolAnmemcodeFalseWithAlwaysTrue]
 # not TYPE_CHECKING and PY3 - result is mypy_false, else is mypy_only
 from typing import TYPE_CHECKING
 if not TYPE_CHECKING and PY3:
@@ -393,7 +393,7 @@ else:
 2: from typing import TYPE_CHECKING
 6: import mypy_only_import [mypy_only]
 
-[case testBoolAndMypyTrueOnly]
+[case testBoolAnmemcodeTrueOnly]
 # MYPY and TYPE_CHECKING - both mypy_true, result is mypy_true
 from typing import TYPE_CHECKING
 if MYPY and TYPE_CHECKING:

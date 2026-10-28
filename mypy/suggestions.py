@@ -106,7 +106,7 @@ class SuggestionPlugin(Plugin):
             target = target.rsplit(".", 1)[0]
 
         self.target = target
-        # List of call sites found by dmypy suggest:
+        # List of call sites found by memcode suggest:
         # (path, line, <arg kinds>, <arg names>, <arg types>)
         self.mystery_hits: list[Callsite] = []
 

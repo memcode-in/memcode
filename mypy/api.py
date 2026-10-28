@@ -17,8 +17,8 @@ the exit status mypy normally returns to the operating system.
 
 Any pretty formatting is left to the caller.
 
-The 'run_dmypy' function is similar, but instead mimics invocation of
-dmypy. Note that run_dmypy is not thread-safe and modifies sys.stdout
+The 'run_memcode' function is similar, but instead mimics invocation of
+memcode. Note that run_memcode is not thread-safe and modifies sys.stdout
 and sys.stderr during its invocation.
 
 Note that these APIs don't support incremental generation of error
@@ -66,7 +66,7 @@ def _run(main_wrapper: Callable[[TextIO, TextIO], None]) -> tuple[str, str, int]
 
 
 def run(args: list[str]) -> tuple[str, str, int]:
-    # Lazy import to avoid needing to import all of mypy to call run_dmypy
+    # Lazy import to avoid needing to import all of mypy to call run_memcode
     from mypy.main import main
 
     return _run(
@@ -74,13 +74,13 @@ def run(args: list[str]) -> tuple[str, str, int]:
     )
 
 
-def run_dmypy(args: list[str]) -> tuple[str, str, int]:
-    from mypy.dmypy.client import main
+def run_memcode(args: list[str]) -> tuple[str, str, int]:
+    from mypy.memcode.client import main
 
     # A bunch of effort has been put into threading stdout and stderr
     # through the main API to avoid the threadsafety problems of
     # modifying sys.stdout/sys.stderr, but that hasn't been done for
-    # the dmypy client, so we just do the non-threadsafe thing.
+    # the memcode client, so we just do the non-threadsafe thing.
     def f(stdout: TextIO, stderr: TextIO) -> None:
         old_stdout = sys.stdout
         old_stderr = sys.stderr

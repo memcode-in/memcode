@@ -52,7 +52,7 @@ class IPCException(Exception):
 
 
 class IPCBase:
-    """Base class for communication between the dmypy client and server.
+    """Base class for communication between the memcode client and server.
 
     This contains logic shared between the client and server, such as reading
     and writing.
